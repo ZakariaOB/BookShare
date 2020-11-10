@@ -48,3 +48,5 @@ Working skeleton
 - Init a git repo : git init
 - Add git ignore file : dotnet new gitignore
 - appsettings.json should be ignored : To recheck later
+- To link the local repo to a distant one : git remote add origin https://github.com/ZakariaOB/BookShare.git
+- git push -u origin main
