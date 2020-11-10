@@ -1,0 +1,50 @@
+Working skeleton
+----------------------------------------
+
+- Useful commands to work for .NET projects
+  => dotnet --version : All the installed versions on the machine
+  => dotnet -h : help commands
+  => dotnet new sln : solution file
+
+- dotnet new webapi -o API : -o output directory as we need the api to have it's own folder
+- Add the api to our solution : dotnet sln add API
+- In VS code : to hide some folders or files from the solution you can use Files:exclude
+  add pattern example : **/bin ; **/obj
+- Command to run the .Net core project : dotent run
+- Security : Some websites are using https in order to secure the data exchanged using SSL and more adapted version
+  TLS => https://www.websecurity.digicert.com/security-topics/what-is-ssl-tls-https
+- Https : https://stackoverflow.com/questions/8375134/difference-between-http-and-https#:~:text=HTTPS%20means%20that%20you%20tunnel,How%20to%20use%20HTTPS%3F
+- In order for my machine to trust the .NET certificate
+  dotnet dev-certs https --trust
+- Review : Lecture 8
+- dotnet run => Run the application
+- The entry point for our application is Program.cs
+- Logging level : What happend when we hit endpoints is described by the console logging system
+- Use Https redirection (UseHttpsRedirection) : If we come with an http url we are redirected to an https one 
+- "launchBrowser": false in launchSettings.json
+- dotnet watch run => Keep an eye on the changes
+- Benefits of EF :
+    => Querying
+    => Change tracking
+    => Saving
+    => Concurrency
+    => Transactions
+    => Caching
+    => Built-in-conventions (Id, foreign key names etc ...)
+    => Migrations
+- Install Nuget gallery for nuget management
+- In order to use the DbContext inside the app make sure to inject it also inside StartUp.cs class
+- We can use on appSettings.Developpemnt.json any information that could be seen bu other users
+- In order to start code first with EF we need to install dotnet-ef . But it's already installed with EFSql server
+  - Migration command : dotnet ef migrations add initialCreate -o Data/Migrations
+  > -o : create a folder
+- Dotnet tool EF update 
+    (update : Update | install : Install)
+  => dotnet tool update --global dotnet-ef --version 5.0.0-preview.8.20407.4
+- The migration files are used to run against a database , when you create a migration it's not updating the model.
+- To undo the migration action, use 'ef migrations remove'
+- dotnet ef database update
+- Always use asynchronous code when dealing with database calls
+- Init a git repo : git init
+- Add git ignore file : dotnet new gitignore
+- appsettings.json should be ignored : To recheck later
