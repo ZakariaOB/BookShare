@@ -1,4 +1,4 @@
-Working skeleton
+Working skeleton API
 ----------------------------------------
 
 - Useful commands to work for .NET projects
@@ -49,4 +49,28 @@ Working skeleton
 - Add git ignore file : dotnet new gitignore
 - appsettings.json should be ignored : To recheck later
 - To link the local repo to a distant one : git remote add origin https://github.com/ZakariaOB/BookShare.git
-- git push -u origin main
+
+
+Working skeleton ANGULAR
+----------------------------------------
+- update 
+    NodeJs : Reinstall it
+    npm : 
+       Run PowerShell as Administrator
+        Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+        npm install -g npm-windows-upgrade
+        npm-windows-upgrade   
+- Use the angular CLI
+- npm install -g @angular/cli
+- Decoratcor : Giving a class some extra power
+- Lecture : 23 => Making http requests in Angular
+
+- CORS : Modern browsers will not allow reaching an app from a different origin than 
+  the one containing it (The difference could be simply on the port number, as example API and client
+  projects that we are using) . To allow this AddCors() inside the API.
+- Normally don't use jQuery as Angular also change the DOM
+- Install angular bootstrap (ngx-bootstrap)
+- ng add ngx-bootstrap
+- Install a certificate for our angular app to use https (SSL)
+- We don't want to put any sensible information inside our client project
+
