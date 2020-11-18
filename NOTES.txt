@@ -74,3 +74,26 @@ Working skeleton ANGULAR
 - Install a certificate for our angular app to use https (SSL)
 - We don't want to put any sensible information inside our client project
 
+
+Authentication basics
+-----------------------------------------------
+- dotnet ef migrations add UpdateAppUser -o Data/Migrations
+- Think about validating your dtos coming from the client side even if the client will validate 
+  things before hitting the API
+- [APIController] is the responsible of using DTOs validation rules and send back issues 
+  for the requests coming from the API .
+- We can validate our models : [Required] , [Email], [StringLength] and others and we can also 
+  our custom validators
+- Did the register endpoint and then the login one inside the AccountController
+- Services are good to manage on 'AddScoped' as we don't need the service as soon as a request 
+  is done .
+- For new packages => Open nuGet gallery
+- In order for .NET core to handle the authentication we need Microsoft.AspNetCore.Authentication.JwtBearer
+  installed .
+- The logic behind is that : We use the authentication middlware of .NET core and we configure it on the StartUp class 
+  > services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) (Extension class)
+  > app.UseAuthentication => to enbale the usage of the service 
+  > app.UseAuthorization => To enable the usage of the UseAuthorization
+  > At this point when you login you get your token generated inside the app and propably recognized by the authentication middlware
+  > Now the app knwos your token
+  > [Authorize] will check your token and will give you access or not to the requested action
