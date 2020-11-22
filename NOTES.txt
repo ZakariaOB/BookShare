@@ -107,4 +107,10 @@ Client login and register :
 - ng g c home --skip-tests
 - ng g c register --skip-tests
 
+Routing in Angular
+---------------------------------------------
+- npm install bootswatch => Bootstrap themes
+- npm install ngx-toastr => Notifications
+- Adding and AuthGuard to secure routes
+
 
