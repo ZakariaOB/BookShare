@@ -112,5 +112,105 @@ Routing in Angular
 - npm install bootswatch => Bootstrap themes
 - npm install ngx-toastr => Notifications
 - Adding and AuthGuard to secure routes
+- Check the usage of modules in Angular
+
+Error handling
+---------------------------------------------
+- To use an interceptor : 
+  app.module.ts
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
+
+- Http errors
+   > 404 : Not found
+   > 400 : Bad request (Can be returned with BadRequest) | Validation error (The api could handle that directly or implicitly as used 
+           for the model validation errors .)
+   > 500 : server error should be converted by the middleware for a better usage .
+   > 401: Unauthorized
+
+- Things are not so obvious when using a middleware . The idea is to create the middleware 
+  and inside it you can catch an exception . what will happen after that is by writing :
+   context.Response.ContentType = "application/json";
+   context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+  An http response object will be created containg signficant information with an error object
+  => HttpResponse {error = null, name, url, status, statusText} ...
+  => This object can be filled from the API by using : await context.Response.WriteAsync(json);
+      
+      HttpErrorResponse {headers: HttpHeaders, status: 400, statusText: "OK", url: "https://localhost:5001/api/account/register", ok: false, …}
+          error: {type: "https://tools.ietf.org/html/rfc7231#section-6.5.1", title: "One or more validation errors occurred.", status: 400, traceId: "00-a144dc7b92c6bb4bbe20cffc19c86b1f-802ed0763d7e2c4a-00", errors: {…}}
+          headers: HttpHeaders {normalizedNames: Map(0), lazyUpdate: null, lazyInit: ƒ}
+          message: "Http failure response for https://localhost:5001/api/account/register: 400 OK"
+          name: "HttpErrorResponse"
+          ok: false
+          status: 400
+          statusText: "OK"
+          url: "https://localhost:5001/api/account/register"
+          __proto__: HttpResponseBase
+
+  => The idea here is to provide a json object as the error and reuse it in the client side 
+     (ApiException class that was serialized to json)
+  => IF the error is a 400 validation error .NET will create an HttpResponseError object with the error object filled with 
+     validation error details (The middlware treatement of the issue will not be reached as no exception is raised)
+          errors:
+          Password: ["The Password field is required."]
+          Username: ["The Username field is required."]
+          __proto__: Object
+          status: 400
+          title: "One or more validation errors occurred."
+          traceId: "00-a144dc7b92c6bb4bbe20cffc19c86b1f-802ed0763d7e2c4a-00"
+          type: "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+          __proto__: Object
+
+Extending the API
+---------------------------------------------
+- Check the usage of the ProjectTo (Automapper IQueryable exetensions) inside a BaseRepository .
+- The idea I think of these projection is to send a limited select of columns to the DB .
+- dotnet ef migrations add ExtendModelAddPhotos -o Data/Migrations
+- Review this section and try to summarize it .
+- Seed method and usage of Automapper
+- When we use project to we don't need includes (Some how obvious as automapper 
+  will call the DB on lazy loading mode)
+
+Building the user interface
+---------------------------------------------
+- npm i @kolkov/ngx-gallery
+- The best part about this section is the interceptor that will get the request before sending it
+  add to it the necessary the token coming from the current user saved inside the accountService 
+  and then make sure that all requests will continue to the server with out beautiful token !!! => SO NICE
 
 
+Updating resources
+---------------------------------------------
+
+- In order to use ngx-spinner we will need angular-cdk
+- Nice trick for the loading spinners : Using interceptors on the request pipeline
+  to show / hide the loading logo => GREAT
+- Always there a guard for a certain component to prevent leaving without saving 
+- ViewChild => It provides a reference to elements or components in your view .
+- HostListener is used to detect any change on the app outside of the angular App (Similar to ref in Vue I beleive)
+- Review the usage of HostListener
+- Services are singletons
+- Some caching is implemented inside the memmber-list component
+
+Photos functionnality
+-----------------------------------------------------
+- Don't forget : You can always strong type your config variables by creating some
+  custom classes .
+- The photo service will deal with cloudinary for you
+- Review module and summarize 
+
+Reactive forms
+-----------------------------------------------------
+- Forms on angular can have all the utilities to manage : errors object that react 
+  with what's wrong .
+- All Form controls derive from ngControl
+- constructor(@Self() public ngControl: NgControl)
+  => To access the ngControl inside the created new component
+- Use use the form builder service => Reactive form
+
+Pagination, Filtering and sorting
+---------------------------------------------------------
+- Filters in ASP.NET Core allow code to be run before or after specific stages in the request processing pipeline.
+- LogUserActivity => Filter used to log the activity after finishing every request (Proposably at the end of the request pipeline)
+- Check why the pagination information is on the header of the requests
