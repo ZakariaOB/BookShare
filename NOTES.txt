@@ -492,3 +492,51 @@ Identity
 - dotnet ef migrations add identityMigration -o Data/migrations
 - ef migrations remove => This will remove the last migration
 - Update-Database -TargetMigration:"MessagingFunctionnality"
+- dotnet ef migrations add SignalRMigration -o Data/migrations
+- dotnet tool update --global dotnet-ef --version 5.0.0-preview.8.20407.4
+
+SignalR
+----------------------------------------
+- Issue with migrations => Simply stop the server
+
+
+Unit of work and tidying update
+----------------------------------------
+- ng g c confirm-dialog --skip-test 
+
+Publishing
+---------------------------------------
+- Check the kerstel server and how it's used to host the angular application
+- API/wwwroot is used by kerstel server for static (Everything is bundled on javascript)
+- You can use a FallbackController to tell the app what to do in case it does not recognise 
+  a route .
+
+- Angular production build => Given for free by the CLI
+- ng build --prod 
+- The files after the production build are much sameller 
+- For Heroku we will use Postgresql
+- For Postgresql let us Docker
+- hub.docker.com
+- Start a postgres image 
+    docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+- => Modified command 
+    >docker run --name dev -e POSTGRES_USER=appuser -e POSTGRES_PASSWORD=Za1987 -p 5432:5432 -d postgres:latest
+- Postgres master password => Za1987
+- Let us switch to postgres
+- dotnet ef migrations add PostgresInitial -o Data/migrations
+
+- Heroku
+- Using : heroku dotnet buildpack
+- Probably you will need to migrate the app to .NET 5
+- BuildPack form jinCode for the preview release
+  > heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#preview
+- Setting up heroku : Minute 2.44
+- Heroku : Ouss@m@2015
+- App name : bookshareappoz
+- Use PowerShell
+- Herok git => heroku git:remote -a bookshareappoz
+- You will need a build pack in order to make your app ready to deploy
+   > heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#preview 
+- On some ways the heroku config variables will check the appsettings.json 
+  variables defined and will use them for the rest of the APP .
+- Db heroku db string : postgres://rzxunpcjphpbzw:aba58bf49e9e98123f4af130714f86325a3f0dd778463398eaaec7c76ef4dd24@ec2-54-228-209-117.eu-west-1.compute.amazonaws.com:5432/dkaui3q0d1llv
