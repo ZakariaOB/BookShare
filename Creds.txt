@@ -1,0 +1,10 @@
+Host : ec2-54-228-209-117.eu-west-1.compute.amazonaws.com
+DataBase : dkaui3q0d1llv
+Port : 5432
+User : rzxunpcjphpbzw
+Pass : aba58bf49e9e98123f4af130714f86325a3f0dd778463398eaaec7c76ef4dd24
+
+Heroku : Ouss@m@2015
+App name : bookshareappoz
+
+Ouss@M@_2015_Zak
