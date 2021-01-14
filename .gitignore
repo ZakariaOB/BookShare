@@ -444,3 +444,8 @@ $RECYCLE.BIN/
 appsettings.json
 
 ssl
+
+## Config files and logs
+Db.txt
+NOTES.txt
+Publish.txt
