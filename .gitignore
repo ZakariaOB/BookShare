@@ -446,6 +446,6 @@ appsettings.json
 ssl
 
 ## Config files and logs
-Db.txt
+Creds.txt
 NOTES.txt
 Publish.txt

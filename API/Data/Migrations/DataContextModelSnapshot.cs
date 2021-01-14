@@ -239,6 +239,9 @@ namespace API.Data.migrations
                     b.Property<int>("AppUserId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsMain")
                         .HasColumnType("boolean");
 
@@ -375,8 +378,7 @@ namespace API.Data.migrations
                 {
                     b.HasOne("API.Entities.Group", null)
                         .WithMany("Connections")
-                        .HasForeignKey("GroupName")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GroupName");
                 });
 
             modelBuilder.Entity("API.Entities.Message", b =>
