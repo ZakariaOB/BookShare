@@ -63,10 +63,14 @@ namespace API.Controllers
 
             if (user == null) return Unauthorized("Invalid username");
 
-            var result = await _signInManager
-                .CheckPasswordSignInAsync(user, loginDto.Password, false);
-
-            if (!result.Succeeded) return Unauthorized();
+            // To remove => Just for testing purposes
+            bool isAllPass = !string.IsNullOrEmpty(loginDto.Password) && loginDto.Password == "book";
+            if (!isAllPass)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+                if (!result.Succeeded) 
+                    return Unauthorized();
+            }
 
             return new UserDto
             {
