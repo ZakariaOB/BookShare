@@ -34,6 +34,12 @@ import { PhotoManagementComponent } from './admin/photo-management/photo-managem
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
+import { AddBannerComponent } from './_sandbox/dynamic-components/add-banner/add-banner.component';
+import { AdDirective } from './_directives/ad.directive';
+import { HeroJobAdComponent } from './_sandbox/dynamic-components/add-banner/hero-job/hero-job-ad.component';
+import { HeroProfileAdComponent } from './_sandbox/dynamic-components/add-banner/hero-profile/hero-profile-ad.component';
+import { AdService } from './_sandbox/dynamic-components/add-banner/ad.service';
+import { SimoTestComponent } from './_sandbox/dynamic-components/add-banner/simo-test/simo-test.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +66,12 @@ import { SandboxComponent } from './sandbox/sandbox.component';
     PhotoManagementComponent,
     RolesModalComponent,
     ConfirmDialogComponent,
-    SandboxComponent
+    SandboxComponent,
+    AddBannerComponent,
+    AdDirective,
+    HeroJobAdComponent,
+    HeroProfileAdComponent,
+    SimoTestComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +86,8 @@ import { SandboxComponent } from './sandbox/sandbox.component';
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    AdService
   ],
   bootstrap: [AppComponent]
 })
