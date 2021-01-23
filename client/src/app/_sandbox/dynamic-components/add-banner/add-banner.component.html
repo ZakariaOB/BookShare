@@ -1,0 +1,14 @@
+<h3>Advertisements</h3>
+<div class="ad-banner-example">
+  <ul>
+    <li *ngFor="let component of componentList">
+      <button
+        (click)="loadCompnentByEnum(component.enumCompnent)"
+        class="btn btn-info"
+      >
+        {{ component.text }}
+      </button>
+    </li>
+  </ul>
+  <ng-template adHost></ng-template>
+</div>
