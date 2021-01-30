@@ -5,7 +5,7 @@ import { AdService } from '../_sandbox/dynamic-components/add-banner/ad.service'
 @Component({
   selector: 'app-sandbox',
   templateUrl: './sandbox.component.html',
-  styleUrls: ['./sandbox.component.scss']
+  styleUrls: ['./sandbox.component.css']
 })
 export class SandboxComponent implements OnInit {
 

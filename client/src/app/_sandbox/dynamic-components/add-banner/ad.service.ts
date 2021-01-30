@@ -2,7 +2,7 @@ import { TableViewComponent } from '../table-view/table-view.component';
 import { AdItem } from './ad-item';
 import { DynamicComponentEnum } from '../dynamic-component-enum';
 import { Topics } from '../../_mocks/topics';
-import { TypeAheadComponent } from '../type-ahead/type-ahead.component';
+import { BShareTypeaheadComponent } from '../bshare-typeahead/bshare-typeahead.component';
 
 export class AdService {
   getAds() {
@@ -10,7 +10,7 @@ export class AdService {
       new AdItem(DynamicComponentEnum.TableView, TableViewComponent, {
         items: Topics,
       }),
-      new AdItem(DynamicComponentEnum.TypeAhead, TypeAheadComponent, {
+      new AdItem(DynamicComponentEnum.TypeAhead, BShareTypeaheadComponent, {
         list: [
           {id: 1, name: 'maroc'},
           {id: 2, name: 'algerie'},

@@ -38,7 +38,7 @@ import { AddBannerComponent } from './_sandbox/dynamic-components/add-banner/add
 import { AdDirective } from './_directives/ad.directive';
 import { AdService } from './_sandbox/dynamic-components/add-banner/ad.service';
 import { TableViewComponent } from './_sandbox/dynamic-components/table-view/table-view.component';
-import { TypeAheadComponent } from './_sandbox/dynamic-components/type-ahead/type-ahead.component';
+import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,7 @@ import { TypeAheadComponent } from './_sandbox/dynamic-components/type-ahead/typ
     AddBannerComponent,
     AdDirective,
     TableViewComponent,
-    TypeAheadComponent,
+    BShareTypeaheadComponent,
   ],
   imports: [
     BrowserModule,

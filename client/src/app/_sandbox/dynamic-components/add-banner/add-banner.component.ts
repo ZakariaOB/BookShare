@@ -15,7 +15,7 @@ import { AdItem } from './ad-item';
 @Component({
   selector: 'add-banner',
   templateUrl: './add-banner.component.html',
-  styleUrls: ['./add-banner.component.css'],
+  styleUrls: ['./add-banner.component.scss'],
 })
 export class AddBannerComponent implements OnInit, OnDestroy {
   @Input() ads: AdItem[];
