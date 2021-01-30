@@ -36,10 +36,9 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
 import { SandboxComponent } from './sandbox/sandbox.component';
 import { AddBannerComponent } from './_sandbox/dynamic-components/add-banner/add-banner.component';
 import { AdDirective } from './_directives/ad.directive';
-import { HeroJobAdComponent } from './_sandbox/dynamic-components/add-banner/hero-job/hero-job-ad.component';
-import { HeroProfileAdComponent } from './_sandbox/dynamic-components/add-banner/hero-profile/hero-profile-ad.component';
 import { AdService } from './_sandbox/dynamic-components/add-banner/ad.service';
-import { SimoTestComponent } from './_sandbox/dynamic-components/add-banner/simo-test/simo-test.component';
+import { TableViewComponent } from './_sandbox/dynamic-components/table-view/table-view.component';
+import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
 
 @NgModule({
   declarations: [
@@ -69,9 +68,8 @@ import { SimoTestComponent } from './_sandbox/dynamic-components/add-banner/simo
     SandboxComponent,
     AddBannerComponent,
     AdDirective,
-    HeroJobAdComponent,
-    HeroProfileAdComponent,
-    SimoTestComponent
+    TableViewComponent,
+    BShareTypeaheadComponent,
   ],
   imports: [
     BrowserModule,
