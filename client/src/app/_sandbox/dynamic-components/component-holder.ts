@@ -5,4 +5,4 @@ export class ComponentHolder {
         public text: string,
         public enumCompnent: DynamicComponentEnum
       ) {}
-}
+}   
