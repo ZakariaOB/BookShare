@@ -1,26 +1,21 @@
-import { Injectable } from '@angular/core';
-
-import { HeroJobAdComponent } from './hero-job/hero-job-ad.component';
-import { HeroProfileAdComponent } from './hero-profile/hero-profile-ad.component';
+import { TableViewComponent } from '../table-view/table-view.component';
 import { AdItem } from './ad-item';
-import { SimoTestComponent } from './simo-test/simo-test.component';
 import { DynamicComponentEnum } from '../dynamic-component-enum';
+import { Topics } from '../../_mocks/topics';
+import { TypeAheadComponent } from '../type-ahead/type-ahead.component';
 
 export class AdService {
   getAds() {
     return [
-      new AdItem(DynamicComponentEnum.HeroProfileOne, HeroProfileAdComponent, {
-        name: 'Bombasto',
-        bio: 'Brave as they come',
+      new AdItem(DynamicComponentEnum.TableView, TableViewComponent, {
+        items: Topics,
       }),
-
-      new AdItem(DynamicComponentEnum.HeroJob, HeroJobAdComponent, {
-        headline: 'Hiring for several positions',
-        body: 'Submit your resume today!',
-      }),
-
-      new AdItem(DynamicComponentEnum.SimoTest, SimoTestComponent, {
-        master: 'Computer s...',
+      new AdItem(DynamicComponentEnum.TypeAhead, TypeAheadComponent, {
+        list: [
+          {id: 1, name: 'maroc'},
+          {id: 2, name: 'algerie'},
+          {id: 3, name: 'tunisie'},
+        ],
       }),
     ];
   }

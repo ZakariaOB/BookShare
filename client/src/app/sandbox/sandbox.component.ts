@@ -16,5 +16,4 @@ export class SandboxComponent implements OnInit {
   ngOnInit() {
     this.ads = this.adService.getAds();
   }
-
 }
