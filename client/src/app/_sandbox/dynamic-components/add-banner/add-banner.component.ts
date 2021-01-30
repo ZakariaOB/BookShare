@@ -15,28 +15,21 @@ import { AdItem } from './ad-item';
 @Component({
   selector: 'add-banner',
   templateUrl: './add-banner.component.html',
-  styleUrls: ['./add-banner.component.scss'],
+  styleUrls: ['./add-banner.component.css'],
 })
 export class AddBannerComponent implements OnInit, OnDestroy {
   @Input() ads: AdItem[];
-  currentAdIndex = -1;
   @ViewChild(AdDirective, { static: true }) adHost: AdDirective;
-  interval: any;
-
-  heroJob: DynamicComponentEnum = DynamicComponentEnum.HeroJob;
-  heroProfile: DynamicComponentEnum = DynamicComponentEnum.HeroProfileOne;
-  simoTest: DynamicComponentEnum = DynamicComponentEnum.SimoTest;
 
   componentList: ComponentHolder[] = [
-    new ComponentHolder('Open hero job', DynamicComponentEnum.HeroJob),
-    new ComponentHolder('Open hero profile', DynamicComponentEnum.HeroProfileOne),
-    new ComponentHolder('Open simo test', DynamicComponentEnum.SimoTest),
+    new ComponentHolder('Table View', DynamicComponentEnum.TableView),
+    new ComponentHolder('Type Ahead', DynamicComponentEnum.TypeAhead),
   ];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.loadCompnentByEnum(DynamicComponentEnum.SimoTest);
+    this.loadCompnentByEnum(DynamicComponentEnum.TableView);
   }
 
   ngOnDestroy() {
