@@ -25,6 +25,7 @@
     "bootswatch": "^4.5.3",
     "cdk": "^1.75.0",
     "font-awesome": "^4.7.0",
+    "ng-multiselect-dropdown": "^0.2.14",
     "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-spinner": "^10.0.1",
