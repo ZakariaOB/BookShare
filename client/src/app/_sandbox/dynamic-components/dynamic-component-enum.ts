@@ -1,4 +1,5 @@
 export enum DynamicComponentEnum {
     TableView,
-    TypeAhead
+    TypeAhead,
+    MultiSelecSamples
   }
