@@ -26,6 +26,11 @@
             >Admin</a
           >
         </li>
+        <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+          <a class="nav-link" routerLink="/sandbox" routerLinkActive="active"
+            >Sandbox</a
+          >
+        </li>
       </ng-container>
       <li class="nav-item">
         <a class="nav-link" routerLink="/errors" routerLinkActive="active"

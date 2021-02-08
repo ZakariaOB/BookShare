@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Entities;
+using API.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,14 @@ namespace API.Data
 {
     public class Seed
     {
+        public static async Task SeedCountries(DataContext context) {
+            if (context.Countries.Count() > 0) {
+                return;
+            }
+            var data = DbCountriesLoader.Load();
+            await context.Countries.AddRangeAsync(data);
+            await context.SaveChangesAsync();
+        }
         public static async Task SeedUsers(UserManager<AppUser> userManager, 
             RoleManager<AppRole> roleManager)
         {

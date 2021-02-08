@@ -5,6 +5,6 @@ export class AdItem {
   constructor(
     public enumComp: DynamicComponentEnum,
     public component: Type<any>,
-    public data: any
+    public data?: any
   ) {}
 }
