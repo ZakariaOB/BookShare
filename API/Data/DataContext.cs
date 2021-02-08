@@ -22,6 +22,9 @@ namespace API.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -66,6 +69,12 @@ namespace API.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Photo>().HasQueryFilter(p => p.IsApproved);
+
+            builder.Entity<City>()
+                .HasOne(u => u.Country)
+                .WithMany(u => u.Cities)
+                .HasForeignKey(s => s.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.ApplyUtcDateTimeConverter();
         }

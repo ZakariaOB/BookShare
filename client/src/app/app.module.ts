@@ -39,7 +39,6 @@ import { AdDirective } from './_directives/ad.directive';
 import { AdService } from './_sandbox/dynamic-components/add-banner/ad.service';
 import { TableViewComponent } from './_sandbox/dynamic-components/table-view/table-view.component';
 import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
-import { SimoTestComponent } from './_sandbox/dynamic-components/add-banner/simo-test/simo-test.component';
 import { MultiSelectSamplesComponent } from './_sandbox/multi-select-test/multi-select-samples/multi-select-samples.component';
 import { BshareMultiselectComponent } from './_sandbox/multi-select-test/bshare-multiselect/bshare-multiselect.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -74,9 +73,6 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     AdDirective,
     TableViewComponent,
     BShareTypeaheadComponent,
-    HeroJobAdComponent,
-    HeroProfileAdComponent,
-    SimoTestComponent,
     MultiSelectSamplesComponent,
     BshareMultiselectComponent
   ],
