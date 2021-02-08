@@ -17,13 +17,14 @@ import { AdItem } from './ad-item';
   templateUrl: './add-banner.component.html',
   styleUrls: ['./add-banner.component.scss'],
 })
-export class AddBannerComponent implements OnInit, OnDestroy {
+export class AddBannerComponent implements OnInit {
   @Input() ads: AdItem[];
   @ViewChild(AdDirective, { static: true }) adHost: AdDirective;
 
   componentList: ComponentHolder[] = [
     new ComponentHolder('Table View', DynamicComponentEnum.TableView),
     new ComponentHolder('Type Ahead', DynamicComponentEnum.TypeAhead),
+    new ComponentHolder('Multi select samples', DynamicComponentEnum.MultiSelecSamples),
   ];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
@@ -31,34 +32,6 @@ export class AddBannerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadCompnentByEnum(DynamicComponentEnum.TableView);
   }
-
-  ngOnDestroy() {
-    // clearInterval(this.interval);
-  }
-
-  /*
-  loadComponent() {
-    this.currentAdIndex = (this.currentAdIndex + 1) % this.ads.length;
-    const adItem = this.ads[this.currentAdIndex];
-
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      adItem.component
-    );
-
-    const viewContainerRef = this.adHost.viewContainerRef;
-    viewContainerRef.clear();
-
-    const componentRef = viewContainerRef.createComponent<AdComponent>(
-      componentFactory
-    );
-    componentRef.instance.data = adItem.data;
-  }
-
-  getAds() {
-    this.interval = setInterval(() => {
-      this.loadComponent();
-    }, 3000);
-  }*/
 
   loadCompnentByEnum(compoEnum: DynamicComponentEnum): void {
     var dynamiComponent = this.ads.find((a) => a.enumComp == compoEnum);

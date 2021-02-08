@@ -39,6 +39,9 @@ import { AdDirective } from './_directives/ad.directive';
 import { AdService } from './_sandbox/dynamic-components/add-banner/ad.service';
 import { TableViewComponent } from './_sandbox/dynamic-components/table-view/table-view.component';
 import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
+import { MultiSelectSamplesComponent } from './_sandbox/multi-select-test/multi-select-samples/multi-select-samples.component';
+import { BshareMultiselectComponent } from './_sandbox/multi-select-test/bshare-multiselect/bshare-multiselect.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,8 @@ import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-t
     AdDirective,
     TableViewComponent,
     BShareTypeaheadComponent,
+    MultiSelectSamplesComponent,
+    BshareMultiselectComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +84,8 @@ import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-t
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

@@ -3,6 +3,8 @@ import { AdItem } from './ad-item';
 import { DynamicComponentEnum } from '../dynamic-component-enum';
 import { Topics } from '../../_mocks/topics';
 import { BShareTypeaheadComponent } from '../bshare-typeahead/bshare-typeahead.component';
+import { BshareMultiselectComponent } from '../../multi-select-test/bshare-multiselect/bshare-multiselect.component';
+import { MultiSelectSamplesComponent } from '../../multi-select-test/multi-select-samples/multi-select-samples.component';
 
 export class AdService {
   getAds() {
@@ -17,6 +19,7 @@ export class AdService {
           {id: 3, name: 'tunisie'},
         ],
       }),
+      new AdItem(DynamicComponentEnum.MultiSelecSamples, MultiSelectSamplesComponent)
     ];
   }
 }
