@@ -22,6 +22,7 @@ export class AddBannerComponent implements OnInit {
   @ViewChild(AdDirective, { static: true }) adHost: AdDirective;
 
   componentList: ComponentHolder[] = [
+    new ComponentHolder('Forms', DynamicComponentEnum.Forms),
     new ComponentHolder('Table View', DynamicComponentEnum.TableView),
     new ComponentHolder('Type Ahead', DynamicComponentEnum.TypeAhead),
     new ComponentHolder('Multi select samples', DynamicComponentEnum.MultiSelecSamples),
@@ -30,7 +31,7 @@ export class AddBannerComponent implements OnInit {
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.loadCompnentByEnum(DynamicComponentEnum.TableView);
+    this.loadCompnentByEnum(DynamicComponentEnum.Forms);
   }
 
   loadCompnentByEnum(compoEnum: DynamicComponentEnum): void {
