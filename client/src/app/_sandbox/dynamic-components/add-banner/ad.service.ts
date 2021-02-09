@@ -5,6 +5,7 @@ import { Topics } from '../../_mocks/topics';
 import { BShareTypeaheadComponent } from '../bshare-typeahead/bshare-typeahead.component';
 import { BshareMultiselectComponent } from '../../multi-select-test/bshare-multiselect/bshare-multiselect.component';
 import { MultiSelectSamplesComponent } from '../../multi-select-test/multi-select-samples/multi-select-samples.component';
+import {BShareFormsComponent} from '../bshare-forms/bshare-forms.component';
 
 export class AdService {
   getAds() {
@@ -18,6 +19,9 @@ export class AdService {
           {id: 2, name: 'algerie'},
           {id: 3, name: 'tunisie'},
         ],
+      }),
+      new AdItem(DynamicComponentEnum.Forms, BShareFormsComponent, {
+        data: [],
       }),
       new AdItem(DynamicComponentEnum.MultiSelecSamples, MultiSelectSamplesComponent)
     ];

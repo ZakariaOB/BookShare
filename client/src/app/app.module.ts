@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +40,10 @@ import { AdDirective } from './_directives/ad.directive';
 import { AdService } from './_sandbox/dynamic-components/add-banner/ad.service';
 import { TableViewComponent } from './_sandbox/dynamic-components/table-view/table-view.component';
 import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
+import { BShareFormsComponent } from './_sandbox/dynamic-components/bshare-forms/bshare-forms.component';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './_services/in-memory-data.service';
+import { MessageLogComponent } from './_sandbox/message-log/message-log.component';
 import { MultiSelectSamplesComponent } from './_sandbox/multi-select-test/multi-select-samples/multi-select-samples.component';
 import { BshareMultiselectComponent } from './_sandbox/multi-select-test/bshare-multiselect/bshare-multiselect.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -72,27 +77,33 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     AddBannerComponent,
     AdDirective,
     TableViewComponent,
+    BShareFormsComponent,
+    MessageLogComponent,
     BShareTypeaheadComponent,
     MultiSelectSamplesComponent,
     BshareMultiselectComponent
   ],
   imports: [
+    TypeaheadModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
     NgxSpinnerModule,
     NgMultiSelectDropDownModule.forRoot()
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false,
+    }),
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
-    AdService
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    AdService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
