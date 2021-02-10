@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AdItem } from '../_sandbox/dynamic-components/add-banner/ad-item';
-import { AdService } from '../_sandbox/dynamic-components/add-banner/ad.service';
+import { SandBoxItem } from '../_sandbox/dynamic-components/sandbox-host/sandbox-item';
+import { SandboxService } from '../_sandbox/dynamic-components/sandbox-host/sandbox.service';
 
 @Component({
   selector: 'app-sandbox',
@@ -9,11 +9,11 @@ import { AdService } from '../_sandbox/dynamic-components/add-banner/ad.service'
 })
 export class SandboxComponent implements OnInit {
 
-  ads: AdItem[];
+  items: SandBoxItem[];
 
-  constructor(private adService: AdService) {}
+  constructor(private sandBoxService: SandboxService) {}
 
   ngOnInit() {
-    this.ads = this.adService.getAds();
+    this.items = this.sandBoxService.getDynamiComponentsDescriptors();
   }
 }

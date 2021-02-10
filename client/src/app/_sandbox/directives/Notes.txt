@@ -1,1 +1,4 @@
 - An Attribute directive changes the appearance or behavior of a DOM element.
+- ng generate directive highlight
+- Though highlight would be a more concise selector than appHighlight and it would work, 
+  the best practice is to prefix selector names to ensure they don't conflict with standard HTML attributes
