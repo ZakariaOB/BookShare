@@ -2,18 +2,18 @@
   width: 100%;
   height: 100%;
 }
-.add-banner {
+.sandbox-host {
   display: flex;
   flex-direction: row;
 }
 
-.add-banner ul {
+.sandbox-host ul {
   min-width: 200px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.add-banner li {
+.sandbox-host li {
   text-decoration: none;
   cursor: pointer;
   font-size: 1.4rem;
@@ -22,10 +22,10 @@
   padding: 8px 8px 8px 20px;
   margin: 0;
   transition: background-color 0.2s;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
-.add-banner li:hover,
-.add-banner li:active {
+.sandbox-host li:hover,
+.sandbox-host li:active {
   color: #e95420;
   background-color: #dbdbdb;
 }
