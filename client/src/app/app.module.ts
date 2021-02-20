@@ -49,6 +49,7 @@ import { BshareMultiselectComponent } from './_sandbox/multi-select-test/bshare-
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HighlightDirective } from './_sandbox/directives/attribute-directives/highlight.directive';
 import { DirectiveSamplesComponent } from './_sandbox/directives/directive-samples/directive-samples.component';
+import { NameEditorComponent } from './_sandbox/z_reactive_forms/name-editor/name-editor.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { DirectiveSamplesComponent } from './_sandbox/directives/directive-sampl
     MultiSelectSamplesComponent,
     BshareMultiselectComponent,
     HighlightDirective,
-    DirectiveSamplesComponent
+    DirectiveSamplesComponent,
+    NameEditorComponent
   ],
   imports: [
     TypeaheadModule.forRoot(),

@@ -7,6 +7,7 @@ import {
   Component,
 } from '@angular/core';
 import { SandboxHostDirective } from 'src/app/_directives/sandbox-host.directive';
+import { DirectiveSamplesComponent } from '../../directives/directive-samples/directive-samples.component';
 import { ComponentHolder } from '../component-holder';
 import { DynamicComponentEnum } from '../dynamic-component-enum';
 import { TableViewComponent } from '../table-view/table-view.component';
@@ -28,7 +29,7 @@ export class SandBoxHostComponent implements OnInit {
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.loadCompnentByName(TableViewComponent.name);
+    this.loadCompnentByName(DirectiveSamplesComponent.name);
   }
 
   loadCompnentByName(name: string): void {

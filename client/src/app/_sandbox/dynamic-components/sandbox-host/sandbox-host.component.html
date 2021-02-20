@@ -1,8 +1,10 @@
 <div class="sandbox-host">
-  <ul>
-    <li *ngFor="let component of componentList" (click)="loadCompnentByName(component.name)">
-      {{ component.description }}
-    </li>
-  </ul>
+  <div class="sandbox-list">
+    <ul>
+      <li *ngFor="let component of componentList" (click)="loadCompnentByName(component.name)">
+        {{ component.description }}
+      </li>
+    </ul>
+  </div>
   <ng-template class="template-container" sandboxHost></ng-template>
 </div>
