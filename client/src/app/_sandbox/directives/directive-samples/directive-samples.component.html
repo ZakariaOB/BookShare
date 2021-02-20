@@ -1,1 +1,33 @@
-<p appHighlight>directive-samples works!</p>
+<div class="directive-samples">
+  <div class="row">
+    <div class="col">
+      <h3>Directive diffrent usage options</h3>
+      <div class="row">
+        <div class="col box">
+          <p appHighlight differentColorName="yellow">Highlighted in yellow</p>
+        </div>
+        <div class="col box">
+          <p appHighlight [differentColorName]="'orange'">
+            Highlighted in orange
+          </p>
+        </div>
+        <div class="col box">
+          <p [appHighlight]="color">
+            Or you can use the same name for the input and the directive
+          </p>
+        </div>
+        <div class="col box">
+          <p [appHighlight]="greenColor">Or you can an alias if you want</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>ngNonBindable with a directive</h3>
+      <div ngNonBindable [appHighlight]="'yellow'">
+        This should not evaluate: {{ 1 + 1 }}, but will highlight yellow.
+      </div>
+    </div>
+  </div>
+</div>
