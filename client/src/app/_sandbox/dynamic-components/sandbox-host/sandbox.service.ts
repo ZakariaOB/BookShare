@@ -1,10 +1,10 @@
 import { TableViewComponent } from '../table-view/table-view.component';
-import { DynamicComponentEnum } from '../dynamic-component-enum';
 import { Topics } from '../../_mocks/topics';
 import { BShareTypeaheadComponent } from '../bshare-typeahead/bshare-typeahead.component';
 import { MultiSelectSamplesComponent } from '../../multi-select-test/multi-select-samples/multi-select-samples.component';
 import { SandBoxItem } from './sandbox-item';
 import { DirectiveSamplesComponent } from '../../directives/directive-samples/directive-samples.component';
+import { TestFormsComponent } from '../test-forms/test-forms.component';
 
 export class SandboxService {
   getDynamiComponentsDescriptors() {
@@ -16,14 +16,7 @@ export class SandboxService {
       }),
       new SandBoxItem({
         componentName: 'Type Ahead',
-        component: BShareTypeaheadComponent,
-        data: {
-          list: [
-            { id: 1, name: 'maroc' },
-            { id: 2, name: 'algerie' },
-            { id: 3, name: 'tunisie' },
-          ],
-        },
+        component: BShareTypeaheadComponent
       }),
       new SandBoxItem({
         componentName: 'Multi Select',
@@ -33,6 +26,10 @@ export class SandboxService {
         componentName: 'Directive samples',
         component: DirectiveSamplesComponent,
       }),
+      new SandBoxItem({
+        componentName: 'Mo Test Forms',
+        component: TestFormsComponent,
+      })
     ];
   }
 }

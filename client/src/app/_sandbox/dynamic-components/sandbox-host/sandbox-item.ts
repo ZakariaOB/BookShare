@@ -1,5 +1,4 @@
 import { Type } from '@angular/core';
-import { DynamicComponentEnum } from '../dynamic-component-enum';
 
 export class SandBoxItem {
   componentName: string;

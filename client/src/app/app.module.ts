@@ -41,8 +41,6 @@ import { SandboxService } from './_sandbox/dynamic-components/sandbox-host/sandb
 import { TableViewComponent } from './_sandbox/dynamic-components/table-view/table-view.component';
 import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
 import { TestFormsComponent } from './_sandbox/dynamic-components/test-forms/test-forms.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './_services/in-memory-data.service';
 import { MessageLogComponent } from './_sandbox/message-log/message-log.component';
 import { MultiSelectSamplesComponent } from './_sandbox/multi-select-test/multi-select-samples/multi-select-samples.component';
 import { BshareMultiselectComponent } from './_sandbox/multi-select-test/bshare-multiselect/bshare-multiselect.component';
