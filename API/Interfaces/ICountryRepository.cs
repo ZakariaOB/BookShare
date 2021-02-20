@@ -4,5 +4,5 @@ using API.Entities;
 
 public interface ICountryRepository
 {
-    Task<IEnumerable<Country>> GetCountries();
+	Task<IEnumerable<Country>> GetCountries(string search);
 }

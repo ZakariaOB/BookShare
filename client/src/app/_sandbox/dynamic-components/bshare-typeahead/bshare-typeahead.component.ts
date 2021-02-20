@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Self, Output,EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { noop, Observable, Observer, of } from 'rxjs';
 import { map, switchMap, tap, debounceTime, distinctUntilChanged,} from 'rxjs/operators';
 import { CountryService } from '../../../_services/country.service';
 import { Country } from '../../_interfaces/country';
-import { FormControl,FormGroup } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { LogMessageService } from 'src/app/_services/log-message.service';
 
 
@@ -13,22 +13,35 @@ import { LogMessageService } from 'src/app/_services/log-message.service';
   templateUrl: './bshare-typeahead.component.html',
   styleUrls: ['./bshare-typeahead.component.scss']
 })
-export class BShareTypeaheadComponent implements OnInit {
-  @Input() formGroup: FormGroup;
-
-  /*stateCtrl = new FormControl('');
-  myForm = new FormGroup({
-    search: this.stateCtrl
-  });*/
-
+export class BShareTypeaheadComponent implements OnInit,ControlValueAccessor {
+  @Input() label: string;
+  @Output() noResultEvent = new EventEmitter<boolean>();
   suggestions$: any;
   errorMessage: string;
   selectedMatches= [];
-  constructor(private http: HttpClient ,private countryService: CountryService,private messageService: LogMessageService) {}
+  optionOnBlur: any;
+  noResult = false;
+
+  constructor(@Self() public ngControl: NgControl,private http: HttpClient ,private countryService: CountryService,private messageService: LogMessageService) {
+    this.ngControl.valueAccessor = this;
+  }
 
   ngOnInit(): void {
+    this.loadList();
+  }
+
+  writeValue(obj: any): void {
+  }
+
+  registerOnChange(fn: any): void {
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  loadList(): void {
     this.suggestions$ = new Observable((observer: Observer<string>) => {
-      observer.next(this.formGroup.get('country').value);
+      observer.next(this.ngControl.value);
     }).pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -50,10 +63,19 @@ export class BShareTypeaheadComponent implements OnInit {
     );
   }
 
-  onSelect(e: any): void {
-    console.log('Selected value: ', e.item);
+  onSelect(event: any): void {
+    console.log('Selected value: ', event.item);
    // console.log('Selected name : ', this.stateCtrl.value);
   }
 
+  typeaheadOnBlur(event: any): void {
+    this.optionOnBlur = event.item;
+    console.log("on blur value:  ", event.item);
+  }
+  typeaheadNoResults(event: boolean): void {
+    this.noResult = event;
+    console.log('no result event',event);
+    this.noResultEvent.emit(event);
+  }
 }
 

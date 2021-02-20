@@ -10,11 +10,11 @@ import {Country} from '../_sandbox/_interfaces/country';
 })
 export class CountryService {
 
-  private countriesUrl = 'api/countries';  // URL to web api
+  private countriesUrl = 'https://localhost:5001/api/country/get-countries';  // URL to web api
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  // httpOptions = {
+  //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  // };
 
   constructor(private http: HttpClient) { }
 
@@ -26,9 +26,9 @@ export class CountryService {
   /* GET countries whose name contains search term */
   searchCountries(term: string): Observable<Country[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
+      // if not search term, return empty array.
       return of([]);
     }
-    return this.http.get<Country[]>(`${this.countriesUrl}/?name=${term}`);
+    return this.http.get<Country[]>(`${this.countriesUrl}/${term}`);
   }
 }

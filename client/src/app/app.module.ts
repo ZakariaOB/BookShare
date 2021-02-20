@@ -92,17 +92,17 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ReactiveFormsModule,
     SharedModule,
     NgxSpinnerModule,
-    NgMultiSelectDropDownModule.forRoot()
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+    NgMultiSelectDropDownModule.forRoot(),
+    HttpClientModule
+    /*HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false,
-    }),
+    }),*/
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    AdService,
+    //{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    AdService
   ],
   bootstrap: [AppComponent],
 })
