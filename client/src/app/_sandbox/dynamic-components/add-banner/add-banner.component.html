@@ -1,6 +1,9 @@
 <div class="add-banner">
   <ul>
-    <li *ngFor="let component of componentList" (click)="loadCompnentByEnum(component.enumCompnent)">
+    <li
+      *ngFor="let component of componentList"
+      (click)="loadCompnentByEnum(component.enumCompnent)"
+    >
       {{ component.text }}
     </li>
   </ul>

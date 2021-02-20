@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   maxDate: Date;
   validationErrors: string[] = [];
+  countryIsValid: boolean;
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
     private fb: FormBuilder, private router: Router) { }
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit {
       knownAs: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       city: ['', Validators.required],
-      country: ['', Validators.required],
+      country: ['', [Validators.required, this.validCountry()]],
       password: ['', [Validators.required,
         Validators.minLength(4), Validators.maxLength(8)]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]]
@@ -43,6 +44,16 @@ export class RegisterComponent implements OnInit {
       return control?.value === control?.parent?.controls[matchTo].value
         ? null : {isMatching: true};
     };
+  }
+
+  validCountry(): ValidatorFn {
+    return () => {
+      return this.countryIsValid ? {isFound: true}:null;
+    }
+  }
+
+  countryNotFounded(countryEvent: boolean) {
+    this.countryIsValid = countryEvent;
   }
 
   register() {
