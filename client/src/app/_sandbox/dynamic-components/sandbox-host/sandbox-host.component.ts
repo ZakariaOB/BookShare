@@ -9,8 +9,6 @@ import {
 import { SandboxHostDirective } from 'src/app/_directives/sandbox-host.directive';
 import { DirectiveSamplesComponent } from '../../directives/directive-samples/directive-samples.component';
 import { ComponentHolder } from '../component-holder';
-import { DynamicComponentEnum } from '../dynamic-component-enum';
-import { TableViewComponent } from '../table-view/table-view.component';
 import { SandBoxItem } from './sandbox-item';
 
 @Component({
