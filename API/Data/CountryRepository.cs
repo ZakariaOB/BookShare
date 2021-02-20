@@ -18,7 +18,6 @@ namespace API.Data
 		{
 			if (string.IsNullOrWhiteSpace(search))
 			{
-
 				return await _context.Countries.ToListAsync();
 			}
 			return await _context.Countries.Where(c => c.Name.ToLower().StartsWith(search.ToLower())).ToListAsync();
