@@ -1,6 +1,6 @@
 export enum DynamicComponentEnum {
     TableView,
     TypeAhead,
-    Forms
+    Forms,
     MultiSelecSamples
   }
