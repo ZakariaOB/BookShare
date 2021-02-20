@@ -35,18 +35,19 @@ import { PhotoManagementComponent } from './admin/photo-management/photo-managem
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
-import { AddBannerComponent } from './_sandbox/dynamic-components/add-banner/add-banner.component';
-import { AdDirective } from './_directives/ad.directive';
-import { AdService } from './_sandbox/dynamic-components/add-banner/ad.service';
+import { SandBoxHostComponent } from './_sandbox/dynamic-components/sandbox-host/sandbox-host.component';
+import { SandboxHostDirective } from './_directives/sandbox-host.directive';
+import { SandboxService } from './_sandbox/dynamic-components/sandbox-host/sandbox.service';
 import { TableViewComponent } from './_sandbox/dynamic-components/table-view/table-view.component';
 import { BShareTypeaheadComponent } from './_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
 import { TestFormsComponent } from './_sandbox/dynamic-components/test-forms/test-forms.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './_services/in-memory-data.service';
 import { MessageLogComponent } from './_sandbox/message-log/message-log.component';
 import { MultiSelectSamplesComponent } from './_sandbox/multi-select-test/multi-select-samples/multi-select-samples.component';
 import { BshareMultiselectComponent } from './_sandbox/multi-select-test/bshare-multiselect/bshare-multiselect.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { HighlightDirective } from './_sandbox/directives/attribute-directives/highlight.directive';
+import { DirectiveSamplesComponent } from './_sandbox/directives/directive-samples/directive-samples.component';
+import { NameEditorComponent } from './_sandbox/z_reactive_forms/name-editor/name-editor.component';
 
 @NgModule({
   declarations: [
@@ -74,14 +75,17 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     RolesModalComponent,
     ConfirmDialogComponent,
     SandboxComponent,
-    AddBannerComponent,
-    AdDirective,
+    SandBoxHostComponent,
+    SandboxHostDirective,
     TableViewComponent,
     TestFormsComponent,
     MessageLogComponent,
     BShareTypeaheadComponent,
     MultiSelectSamplesComponent,
-    BshareMultiselectComponent
+    BshareMultiselectComponent,
+    HighlightDirective,
+    DirectiveSamplesComponent,
+    NameEditorComponent
   ],
   imports: [
     TypeaheadModule.forRoot(),
@@ -97,10 +101,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    AdService
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    SandboxService
   ],
   bootstrap: [AppComponent],
 })
