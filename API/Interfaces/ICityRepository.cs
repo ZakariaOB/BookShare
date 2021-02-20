@@ -5,5 +5,5 @@ using API.Entities;
 
 public interface ICityRepository
 {
-    Task<IEnumerable<City>> GetCitiesByCountryId(int countryId);
+	Task<IEnumerable<City>> GetCitiesByCountryId(int countryId, string search);
 }
