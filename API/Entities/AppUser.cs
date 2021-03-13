@@ -14,9 +14,8 @@ namespace API.Entities
         public string Introduction { get; set; }
         public string LookingFor { get; set; }
         public string Interests { get; set; }
-        public int CityId {get; set;}
+        public int? CityId {get; set;}
         public City City {get; set;}
-
         public ICollection<Photo> Photos { get; set; }
         public ICollection<UserLike> LikedByUsers { get; set; }
         public ICollection<UserLike> LikedUsers { get; set; }

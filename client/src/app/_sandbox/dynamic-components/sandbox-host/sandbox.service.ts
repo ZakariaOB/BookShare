@@ -8,6 +8,7 @@ import { TestFormsComponent } from '../test-forms/test-forms.component';
 import { InputValidationComponent } from '../input-validation/input-validation.component';
 import { TreeHostComponent } from 'src/app/treeview/tree-host/tree-host.component';
 import { TemplateDemoComponent } from '../template-demo/template-demo.component';
+import { UnicornFormHostComponent } from '../form-unicorn-samples/unicorn-form-host/unicorn-form-host.component';
 
 export class SandboxService {
   getDynamiComponentsDescriptors() {
@@ -51,9 +52,14 @@ export class SandboxService {
           new SandBoxItem({
             code: 'dkdjd',
           componentName: 'Template driven forms',
-          component: TestFormsComponent,
+          component: TestFormsComponent
         }),
       ]
+      }),
+      // UnicornFormHostComponent
+      new SandBoxItem({
+        componentName: 'Unicorn forms',
+        component: UnicornFormHostComponent,
       })
     ];
   }
