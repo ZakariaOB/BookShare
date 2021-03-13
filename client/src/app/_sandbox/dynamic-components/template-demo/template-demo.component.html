@@ -1,0 +1,10 @@
+<ng-template #customTabButtons>
+  <h1>custom tab buttons</h1>
+  <button class="tab-button" (click)="login()">
+    {{ loginText }}
+  </button>
+  <button class="tab-button" (click)="signUp()">
+    {{ signUpText }}
+  </button>
+</ng-template>
+<tab-container [headerTemplate]="customTabButtons"></tab-container>
