@@ -1,47 +1,51 @@
-import { Component, OnInit, Input, Self, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Self, Output,EventEmitter, forwardRef,Optional, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { noop, Observable, Observer, of } from 'rxjs';
 import { map, switchMap, tap, debounceTime, distinctUntilChanged,} from 'rxjs/operators';
-import { CountryService } from '../../../_services/country.service';
-import { Country } from '../../_interfaces/country';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { LogMessageService } from 'src/app/_services/log-message.service';
+import { isBs3 } from 'ngx-bootstrap/utils';
 
+export type observableHandler = (query:string) =>  Observable<any[]>;
 
 @Component({
   selector: 'app-type-ahead',
   templateUrl: './bshare-typeahead.component.html',
-  styleUrls: ['./bshare-typeahead.component.scss']
+  styleUrls: ['./bshare-typeahead.component.scss'],
 })
-export class BShareTypeaheadComponent implements OnInit,ControlValueAccessor {
-  @Input() label: string;
-  @Output() noResultEvent = new EventEmitter<boolean>();
-  suggestions$: any;
+export class BShareTypeaheadComponent implements ControlValueAccessor {
+  public selected;
+  public disabled: boolean;
+  suggestions$: Observable<any>;
+  noResults: boolean;
+  isBs3 = isBs3();
+
   errorMessage: string;
-  selectedMatches= [];
-  optionOnBlur: any;
-  noResult = false;
+  @Input() searchHandler: observableHandler;
+  @Input() label: string;
 
-  constructor(@Self() public ngControl: NgControl,private http: HttpClient ,private countryService: CountryService,private messageService: LogMessageService) {
-    this.ngControl.valueAccessor = this;
+  onChange: any = () => {}
+  onTouched: any = () => {}
+
+  writeValue(val){
+    this.selected= val?.name;
+    this._changeDetector.markForCheck();
+  }
+  registerOnChange(fn: any) {
+    this.onChange=fn;
+  }
+  registerOnTouched(fn: any) {
+    this.onTouched=fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this._changeDetector.markForCheck();
   }
 
-  ngOnInit(): void {
-    this.loadList();
-  }
-
-  writeValue(obj: any): void {
-  }
-
-  registerOnChange(fn: any): void {
-  }
-
-  registerOnTouched(fn: any): void {
-  }
-
-  loadList(): void {
+  constructor(@Optional() @Self() public ngControl: NgControl,private http: HttpClient ,private messageService: LogMessageService , private _changeDetector: ChangeDetectorRef){
+    this.ngControl.valueAccessor=this;
     this.suggestions$ = new Observable((observer: Observer<string>) => {
-      observer.next(this.ngControl.value);
+      observer.next(this.selected);
     }).pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -49,9 +53,8 @@ export class BShareTypeaheadComponent implements OnInit,ControlValueAccessor {
       distinctUntilChanged(),
       switchMap((query: string) => {
         if (query) {
-          // using github public api to get users by name
-          return this.countryService.searchCountries(query).pipe(
-            map((data: Country[]) => data || []),
+          return this.searchHandler(query).pipe(
+            map((data: any) => data || []),
             tap(() => noop, err => {
               // in case of http error
               this.errorMessage = err && err.message || 'Something goes wrong';
@@ -64,18 +67,21 @@ export class BShareTypeaheadComponent implements OnInit,ControlValueAccessor {
   }
 
   onSelect(event: any): void {
-    console.log('Selected value: ', event.item);
-   // console.log('Selected name : ', this.stateCtrl.value);
+    this.onTouched();
+      this.onChange(event.item);
+      this.selected = event.item.name;
+  }
+
+  onValueChange(event: any): void {
+    this.onChange(null);
   }
 
   typeaheadOnBlur(event: any): void {
-    this.optionOnBlur = event.item;
-    console.log("on blur value:  ", event.item);
+    this.onTouched();
+    this.onChange(null);
+    this.selected = '';
   }
   typeaheadNoResults(event: boolean): void {
-    this.noResult = event;
-    console.log('no result event',event);
-    this.noResultEvent.emit(event);
+    this.noResults=event;
   }
 }
-

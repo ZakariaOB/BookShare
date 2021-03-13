@@ -1,10 +1,9 @@
 <div class="sandbox-host">
   <div class="sandbox-list">
-    <ul>
-      <li *ngFor="let component of componentList" (click)="loadCompnentByName(component.name)">
-        {{ component.description }}
-      </li>
-    </ul>
+    <app-treeview
+      [treeModel]="treeData"
+      (onSelectItem)="loadCompnentByName($event)"
+    ></app-treeview>
   </div>
   <ng-template class="template-container" sandboxHost></ng-template>
 </div>

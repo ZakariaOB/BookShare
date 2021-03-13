@@ -1,46 +1,56 @@
 <div class="form-group">
+  <ng-template
+    #customListTemplate
+    let-matches="matches"
+    let-query="query"
+    let-typeaheadTemplateMethods
+  >
+    <ul class="custom-list-group" [class.dropdown-menu]="isBs3">
+      <li
+        class="custom-list-group-item"
+        *ngFor="let match of matches"
+        [class.active]="typeaheadTemplateMethods.isActive(match)"
+        (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
+        (mouseenter)="typeaheadTemplateMethods.selectActive(match)"
+      >
+        {{ match.item.name }}
+      </li>
+    </ul>
+  </ng-template>
   <input
-    id="typeInput"
+    class="form-control"
+    [(ngModel)]="selected"
     [typeahead]="suggestions$"
     typeaheadOptionField="name"
-    [typeaheadAsync]="true"
-    class="form-control"
+    [attr.disabled]="disabled ? '' : null"
     placeholder="{{ label }}"
+    [typeaheadAsync]="true"
     (typeaheadOnSelect)="onSelect($event)"
     [isAnimated]="true"
     (typeaheadOnBlur)="typeaheadOnBlur($event)"
-    [formControl]="ngControl.control"
-    [class.is-invalid]="ngControl.touched && ngControl.invalid"
     (typeaheadNoResults)="typeaheadNoResults($event)"
+    [optionsListTemplate]="customListTemplate"
+    [class.is-invalid]="
+      noResults ||
+      (ngControl.touched && ngControl.invalid && nativeInput.invalid)
+    "
+    (ngModelChange)="onValueChange($event)"
+    required
+    #nativeInput="ngModel"
   />
-  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+  <div
+    *ngIf="ngControl.control.errors?.required && nativeInput.errors?.required"
+    class="invalid-feedback"
+  >
     {{ label }} is required
   </div>
-  <div *ngIf="noResult" class="invalid-feedback">{{ label }} is not found</div>
-  <!-- <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-    {{ errorMessage }}
-  </div> -->
+  <div
+    *ngIf="
+      noResults &&
+      !(ngControl.control.errors?.required && nativeInput.errors?.required)
+    "
+    class="invalid-feedback"
+  >
+    {{ label }} is not found
+  </div>
 </div>
-<!-- <div class="form-group">
-  <input
-    [class.is-invalid]="ngControl.touched && ngControl.invalid"
-    type="{{ type }}"
-    class="form-control"
-    [formControl]="ngControl.control"
-    placeholder="{{ label }}"
-  />
-  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
-    Please enter a {{ label }}
-  </div>
-  <div *ngIf="ngControl.control.errors?.minlength" class="invalid-feedback">
-    {{ label }} must be at least
-    {{ ngControl.control.errors.minlength["requiredLength"] }}
-  </div>
-  <div *ngIf="ngControl.control.errors?.maxlength" class="invalid-feedback">
-    {{ label }} must be at most
-    {{ ngControl.control.errors.maxlength["requiredLength"] }}
-  </div>
-  <div *ngIf="ngControl.control.errors?.isMatching" class="invalid-feedback">
-    Passwords do not match
-  </div>
-</div> -->

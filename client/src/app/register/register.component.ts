@@ -3,6 +3,9 @@ import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CountryService } from '../_services/country.service';
+import { observableHandler } from '../_sandbox/dynamic-components/bshare-typeahead/bshare-typeahead.component';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -14,15 +17,26 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   maxDate: Date;
   validationErrors: string[] = [];
-  countryIsValid: boolean;
+  countryIsSelected: boolean = false;
+
 
   constructor(private accountService: AccountService, private toastr: ToastrService,
-    private fb: FormBuilder, private router: Router) { }
+    private fb: FormBuilder, private router: Router, private countryService: CountryService) { }
 
   ngOnInit(): void {
     this.intitializeForm();
     this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() -18);
+  }
+
+  get countrySearchHandler(): observableHandler {
+    return this.countryService.searchCountries;
+  }
+  get citySearchHandler(): observableHandler {
+    if(this.registerForm.controls['country'].value?.id){
+      return (query:string) => this.countryService.searchCities(this.registerForm.controls['country'].value.id,query);
+    }
+    return (query:string) => of([]);
   }
 
   intitializeForm() {
@@ -31,29 +45,32 @@ export class RegisterComponent implements OnInit {
       username: ['', Validators.required],
       knownAs: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', [Validators.required, this.validCountry()]],
+      country: [{},Validators.required],
+      city: [{value:{},disabled:true}, Validators.required],
       password: ['', [Validators.required,
         Validators.minLength(4), Validators.maxLength(8)]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]]
     });
+
+    this.registerForm.get('country').valueChanges.subscribe(value => this.handleCityState(value));
+
   }
 
+  handleCityState(value: any): void {
+    const newCityControl = this.registerForm.get('city');
+    if(value?.id) {
+      newCityControl.reset({});
+      newCityControl.enable();
+    } else {
+      newCityControl.reset({});
+      newCityControl.disable();
+    }
+  }
   matchValues(matchTo: string): ValidatorFn {
     return (control: AbstractControl) => {
       return control?.value === control?.parent?.controls[matchTo].value
         ? null : {isMatching: true};
     };
-  }
-
-  validCountry(): ValidatorFn {
-    return () => {
-      return this.countryIsValid ? {isFound: true}:null;
-    }
-  }
-
-  countryNotFounded(countryEvent: boolean) {
-    this.countryIsValid = countryEvent;
   }
 
   register() {
