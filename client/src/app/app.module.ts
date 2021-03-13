@@ -53,6 +53,8 @@ import { InputValidationComponent } from './_sandbox/dynamic-components/input-va
 import { ForbiddenNameDirective } from './_sandbox/dynamic-components/input-validation/forbidden-name.directive';
 import { TemplateDemoComponent } from './_sandbox/dynamic-components/template-demo/template-demo.component';
 import { TabContainerComponent } from './_sandbox/dynamic-components/template-demo/tab-container/tab-container.component';
+import { UnicornInputComponent } from './_sandbox/dynamic-components/form-unicorn-samples/unicorn-input/unicorn-input.component';
+import { UnicornFormHostComponent } from './_sandbox/dynamic-components/form-unicorn-samples/unicorn-form-host/unicorn-form-host.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,8 @@ import { TabContainerComponent } from './_sandbox/dynamic-components/template-de
     ForbiddenNameDirective,
     TemplateDemoComponent,
     TabContainerComponent,
+    UnicornInputComponent,
+    UnicornFormHostComponent
   ],
   imports: [
     TypeaheadModule.forRoot(),
