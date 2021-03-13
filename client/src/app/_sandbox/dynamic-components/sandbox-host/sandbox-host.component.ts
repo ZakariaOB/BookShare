@@ -6,6 +6,7 @@ import {
   ComponentFactoryResolver,
   Component,
 } from '@angular/core';
+import { TreeModel } from 'src/app/treeview/tree.model';
 import { SandboxHostDirective } from 'src/app/_directives/sandbox-host.directive';
 import { DirectiveSamplesComponent } from '../../directives/directive-samples/directive-samples.component';
 import { ComponentHolder } from '../component-holder';
@@ -19,7 +20,9 @@ import { SandBoxItem } from './sandbox-item';
 export class SandBoxHostComponent implements OnInit {
   @Input() items: SandBoxItem[];
   @ViewChild(SandboxHostDirective, { static: true }) sandboxHost: SandboxHostDirective;
-  
+
+  treeData: TreeModel;
+
   get componentList(): ComponentHolder[] {
     return this.items?.map(item => new ComponentHolder(item.component.name, item.componentName))
   }
@@ -27,10 +30,23 @@ export class SandBoxHostComponent implements OnInit {
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
+    console.log(this.items);
+    this.treeData=new TreeModel("code",
+                                  "componentName",
+                                  "children",
+                                  this.items,
+                                  null,
+                                  true,
+                                  "",
+                                  "demoData_FolderStructure",
+                                  "fa-chevron-right",
+                                  "fa-chevron-down",
+                                  "fa-square-o");
     this.loadCompnentByName(DirectiveSamplesComponent.name);
   }
 
   loadCompnentByName(name: string): void {
+    console.log('called',name);
     var dynamiComponent = this.items.find((a) => a.component.name == name);
     if (dynamiComponent) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
