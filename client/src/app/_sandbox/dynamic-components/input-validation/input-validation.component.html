@@ -1,0 +1,64 @@
+<tabset>
+  <tab heading="Temlate Driven Forms">
+    <div class="container">
+      <h1>Template-Driven Form</h1>
+      <form #personForm="ngForm">
+        <div [hidden]="personForm.submitted">
+          <div
+            class="cross-validation"
+            [class.cross-validation-error]="
+              personForm.errors?.identityRevealed &&
+              (personForm.touched || personForm.dirty)
+            "
+          >
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                id="name"
+                name="name"
+                class="form-control"
+                required
+                minlength="4"
+                appForbiddenName="bob"
+                [(ngModel)]="person.name"
+                #name="ngModel"
+              />
+
+              <div
+                *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="alert alert-danger"
+              >
+                <div *ngIf="name.errors.required">Name is required.</div>
+                <div *ngIf="name.errors.minlength">
+                  Name must be at least 4 characters long.
+                </div>
+                <div *ngIf="name.errors.forbiddenName">Name cannot be Bob.</div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="personForm.invalid"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            class="btn btn-default"
+            (click)="personForm.resetForm({})"
+          >
+            Reset
+          </button>
+        </div>
+
+        <div class="submitted-message" *ngIf="personForm.submitted">
+          <p>You've submitted your hero, {{ personForm.value.name }}!</p>
+          <button (click)="personForm.resetForm({})">Add new hero</button>
+        </div>
+      </form>
+    </div>
+  </tab>
+  <tab heading="Reactive Forms">Basic content 2</tab>
+</tabset>

@@ -1,0 +1,14 @@
+<ng-template #template let-model="item">
+  {{ model.name }}
+</ng-template>
+<input
+  [(ngModel)]="selected"
+  typeaheadOptionField="name"
+  [typeahead]="suggestions$"
+  [typeaheadAsync]="true"
+  [typeaheadItemTemplate]="template"
+  class="form-control"
+  (typeaheadOnSelect)="onSelect($event)"
+  (typeaheadOnBlur)="typeaheadOnBlur($event)"
+  [disabled]="disabled"
+/>
