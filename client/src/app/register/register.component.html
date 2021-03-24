@@ -36,11 +36,13 @@
     [maxDate]="maxDate"
   ></app-date-input>
   <app-type-ahead
+    [valueProperty]="'name'"
     [formControl]="registerForm.controls['country']"
     [label]="'Country'"
     [searchHandler]="countrySearchHandler"
   ></app-type-ahead>
   <app-type-ahead
+    [valueProperty]="'name'"
     [formControl]="registerForm.controls['city']"
     [label]="'City'"
     [searchHandler]="citySearchHandler"
@@ -77,9 +79,9 @@
       Cancel
     </button>
   </div>
-  <div class="container-fluid">Form Value: {{ registerForm.value | json }}</div>
+  <!--<div class="container-fluid">Form Value: {{ registerForm.value | json }}</div>
   <div class="container-fluid">
     Raw Value: {{ registerForm.getRawValue() | json }}
   </div>
-  <div class="container-fluid">Form Status: {{ registerForm.status }}</div>
+  <div class="container-fluid">Form Status: {{ registerForm.status }}</div>-->
 </form>

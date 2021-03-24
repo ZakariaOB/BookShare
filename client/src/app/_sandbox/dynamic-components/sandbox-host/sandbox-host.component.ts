@@ -19,34 +19,37 @@ import { SandBoxItem } from './sandbox-item';
 })
 export class SandBoxHostComponent implements OnInit {
   @Input() items: SandBoxItem[];
-  @ViewChild(SandboxHostDirective, { static: true }) sandboxHost: SandboxHostDirective;
+  @ViewChild(SandboxHostDirective, { static: true })
+  sandboxHost: SandboxHostDirective;
 
   treeData: TreeModel;
 
   get componentList(): ComponentHolder[] {
-    return this.items?.map(item => new ComponentHolder(item.component.name, item.componentName))
+    return this.items?.map(
+      (item) => new ComponentHolder(item.component.name, item.componentName)
+    );
   }
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    console.log(this.items);
-    this.treeData=new TreeModel("code",
-                                  "componentName",
-                                  "children",
-                                  this.items,
-                                  null,
-                                  true,
-                                  "",
-                                  "demoData_FolderStructure",
-                                  "fa-chevron-right",
-                                  "fa-chevron-down",
-                                  "fa-square-o");
+    this.treeData = new TreeModel(
+      'code',
+      'componentName',
+      'children',
+      this.items,
+      null,
+      true,
+      '',
+      'demoData_FolderStructure',
+      'fa-chevron-right',
+      'fa-chevron-down',
+      'fa-square-o'
+    );
     this.loadCompnentByName(DirectiveSamplesComponent.name);
   }
 
   loadCompnentByName(name: string): void {
-    console.log('called',name);
     var dynamiComponent = this.items.find((a) => a.component.name == name);
     if (dynamiComponent) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
@@ -56,9 +59,7 @@ export class SandBoxHostComponent implements OnInit {
       const viewContainerRef = this.sandboxHost.viewContainerRef;
       viewContainerRef.clear();
 
-      const componentRef = viewContainerRef.createComponent(
-        componentFactory
-      );
+      const componentRef = viewContainerRef.createComponent(componentFactory);
       componentRef.instance.data = dynamiComponent.data;
     }
   }

@@ -7,6 +7,9 @@
       <strong>Information: </strong> You have made changes. Any unsaved changes
       will be lost
     </div>
+    <div class="alert alert-info" *ngIf="!editForm.valid">
+      <strong>Information: </strong> You have invalid changes
+    </div>
   </div>
   <div class="col-4">
     <div class="card">
@@ -18,7 +21,7 @@
       <div class="card-body">
         <div>
           <strong>Location:</strong>
-          <p>{{ member.city }}, {{ member.country }}</p>
+          <p>{{ member.city?.name }}, {{ member.country?.name }}</p>
         </div>
         <div>
           <strong>Age:</strong>
@@ -35,7 +38,7 @@
       </div>
       <div class="card-footer">
         <button
-          [disabled]="!editForm.dirty"
+          [disabled]="!editForm.dirty || !editForm.valid"
           form="editForm"
           type="submit"
           class="btn btn-success btn-block"
@@ -49,44 +52,44 @@
   <div class="col-8">
     <tabset class="member-tabset">
       <tab heading="About {{ member.knownAs }}">
-        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+        <form [formGroup]="editForm" id="editForm" (ngSubmit)="updateMember()">
           <h4>Description</h4>
           <textarea
             class="form-control"
-            [(ngModel)]="member.introduction"
+            [formControl]="editForm.controls['introduction']"
             name="introduction"
             rows="6"
           ></textarea>
           <h4 class="mt-2">Looking for</h4>
           <textarea
             class="form-control"
-            [(ngModel)]="member.lookingFor"
+            [formControl]="editForm.controls['lookingFor']"
             name="lookingFor"
             rows="6"
           ></textarea>
           <h4 class="mt-2">Interests</h4>
           <textarea
             class="form-control"
-            [(ngModel)]="member.interests"
+            [formControl]="editForm.controls['interests']"
             name="interests"
             rows="6"
           ></textarea>
           <h4 class="mt-2">Location Details:</h4>
           <div class="form-inline">
+            <label for="country">Country: </label>
+            <app-type-ahead
+              [valueProperty]="'name'"
+              [formControl]="editForm.controls['country']"
+              [label]="'Country'"
+              [searchHandler]="countrySearchHandler"
+            ></app-type-ahead>
             <label for="city">City: </label>
-            <input
-              [(ngModel)]="member.city"
-              type="text"
-              name="city"
-              class="form-control mx-2"
-            />
-            <label for="city">Country: </label>
-            <input
-              [(ngModel)]="member.country"
-              type="text"
-              name="country"
-              class="form-control mx-2"
-            />
+            <app-type-ahead
+            [valueProperty]="'name'"
+              [formControl]="editForm.controls['city']"
+              [label]="'City'"
+              [searchHandler]="citySearchHandler"
+            ></app-type-ahead>
           </div>
         </form>
       </tab>
