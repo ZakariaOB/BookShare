@@ -6,6 +6,7 @@ using API.Entities;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -13,9 +14,12 @@ namespace API.Data
     public class LikesRepository : ILikesRepository
     {
         private readonly DataContext _context;
-        public LikesRepository(DataContext context)
+        private readonly IMapper _mapper;
+
+        public LikesRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
@@ -46,7 +50,7 @@ namespace API.Data
                 KnownAs = user.KnownAs,
                 Age = user.DateOfBirth.CalculateAge(),
                 PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain).Url,
-                City = user.City,
+                City = _mapper.Map<CityDto>(user.City),
                 Id = user.Id
             });
 
