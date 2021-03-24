@@ -57,18 +57,17 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        public async Task<ActionResult<MemberDto>> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
-
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
             _mapper.Map(memberUpdateDto, user);
 
             _unitOfWork.UserRepository.Update(user);
 
-            if (await _unitOfWork.Complete()) return NoContent();
+            var result = await _unitOfWork.UserRepository.GetMemberAsync(user.UserName, false);
 
-            return BadRequest("Failed to update user");
+            return result;
         }
 
         [HttpPost("add-photo")]

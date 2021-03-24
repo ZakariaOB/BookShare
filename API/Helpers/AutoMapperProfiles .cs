@@ -15,12 +15,13 @@ namespace API.Helpers
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
                     src.Photos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.City.Country))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
 
             CreateMap<Photo, PhotoDto>();
 
             CreateMap<MemberUpdateDto, AppUser>()
-            .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.CityId));
+            .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City));
 
             CreateMap<RegisterDto, AppUser>();
 
@@ -33,6 +34,8 @@ namespace API.Helpers
             CreateMap<Country, CountryDto>();
 
             CreateMap<City, CityDto>();
+
+            CreateMap<CityDto, City>();
         }
     }
 }

@@ -5,6 +5,6 @@ namespace API.DTOs
         public string Introduction { get; set; }
         public string LookingFor { get; set; }
         public string Interests { get; set; }
-        public int CityId { get; set; }
+        public CityDto City { get; set; }
     }
 }
