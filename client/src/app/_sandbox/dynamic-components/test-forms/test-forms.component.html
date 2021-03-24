@@ -1,0 +1,57 @@
+<div
+  class="container container__form"
+  style="width: 700px; margin-bottom: 70px; padding: 0 70px"
+>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <h3>Reactive Form:</h3>
+    <h2>Value: {{ profileForm.get("country").value | json }}</h2>
+    <h2>Touched: {{ profileForm.get("country").touched | json }}</h2>
+    <h2>Dirty: {{ profileForm.get("country").dirty | json }}</h2>
+    <h2>error: {{ profileForm.get("country").hasError("required") | json }}</h2>
+    <div class="form-group">
+      <label for="firstName"> First Name: </label>
+      <input
+        type="text"
+        formControlName="firstName"
+        id="firstName"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="lastName"> Last Name: </label>
+      <input
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+        placeholder="lastName"
+        class="form-control"
+        readonly
+      />
+    </div>
+    <div class="form-group">
+      <label for="country"> Country: </label>
+      <app-typeahead-demo
+        formControlName="country"
+        [searchHandler]="countrySearchHandler"
+      ></app-typeahead-demo>
+    </div>
+    <div class="form-group">
+      <label for="city"> City: </label>
+      <app-typeahead-demo
+        formControlName="city"
+        [searchHandler]="citySearchHandler"
+      ></app-typeahead-demo>
+    </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="!profileForm.valid"
+    >
+      Submit
+    </button>
+    <div class="container-fluid">
+      Form Value: {{ profileForm.value | json }}
+    </div>
+    <div class="container-fluid">Form Status: {{ profileForm.status }}</div>
+  </form>
+</div>

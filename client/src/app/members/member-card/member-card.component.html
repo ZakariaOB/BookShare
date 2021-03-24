@@ -42,6 +42,6 @@
 
       {{ member.knownAs }}, {{ member.age }}
     </h6>
-    <p class="card-text text-muted text-center">{{ member.city }}</p>
+    <p class="card-text text-muted text-center">{{ member.city?.name }}, {{ member.country?.name }}</p>
   </div>
 </div>

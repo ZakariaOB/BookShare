@@ -1,0 +1,9 @@
+<div class="sandbox-host">
+  <div class="sandbox-list">
+    <app-treeview
+      [treeModel]="treeData"
+      (onSelectItem)="loadCompnentByName($event)"
+    ></app-treeview>
+  </div>
+  <ng-template class="template-container" sandboxHost></ng-template>
+</div>

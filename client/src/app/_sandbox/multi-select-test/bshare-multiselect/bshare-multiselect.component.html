@@ -1,0 +1,12 @@
+<h1>{{ title }}</h1>
+<h1>HELLO</h1>
+<ng-multiselect-dropdown
+  [placeholder]="placeHolder"
+  [settings]="dropdownSettings"
+  [data]="dropdownOptions"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+  (onDeSelect)="onItemDeSelect($event)"
+>
+</ng-multiselect-dropdown>

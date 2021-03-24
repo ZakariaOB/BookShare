@@ -1,0 +1,57 @@
+<div class="form-group">
+  <ng-template
+    #customListTemplate
+    let-matches="matches"
+    let-query="query"
+    let-typeaheadTemplateMethods
+  >
+    <ul class="custom-list-group" [class.dropdown-menu]="isBs3">
+      <li
+        class="custom-list-group-item"
+        *ngFor="let match of matches"
+        [class.active]="typeaheadTemplateMethods.isActive(match)"
+        (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
+        (mouseenter)="typeaheadTemplateMethods.selectActive(match)"
+      >
+        {{ parseValueProperty(match.item) }}
+      </li>
+    </ul>
+  </ng-template>
+  <input
+    class="form-control"
+    [(ngModel)]="selected"
+    [typeahead]="suggestions$"
+    typeaheadOptionField="valueProperty"
+    [attr.disabled]="disabled ? '' : null"
+    placeholder="{{ label }}"
+    [typeaheadAsync]="true"
+    (typeaheadOnSelect)="onSelect($event)"
+    [isAnimated]="true"
+    (typeaheadOnBlur)="typeaheadOnBlur($event)"
+    (typeaheadNoResults)="typeaheadNoResults($event)"
+    [optionsListTemplate]="customListTemplate"
+    [class.is-invalid]="
+      isEmpty ||
+      noResults ||
+      (ngControl.touched && ngControl.invalid && nativeInput.invalid)
+    "
+    (ngModelChange)="onValueChange($event)"
+    required
+    #nativeInput="ngModel"
+  />
+  <div
+    *ngIf="isEmpty || ngControl.control.errors?.required && nativeInput.errors?.required"
+    class="invalid-feedback"
+  >
+    {{ label }} is required
+  </div>
+  <div
+    *ngIf="
+      noResults &&
+      !(ngControl.control.errors?.required && nativeInput.errors?.required)
+    "
+    class="invalid-feedback"
+  >
+    {{ label }} is not found
+  </div>
+</div>
