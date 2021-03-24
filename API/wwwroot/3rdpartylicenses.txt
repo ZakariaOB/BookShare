@@ -123,6 +123,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 font-awesome
 (OFL-1.1 AND MIT)
 
+ng-multiselect-dropdown
+MIT
+
 ng2-file-upload
 
 ngx-bootstrap
