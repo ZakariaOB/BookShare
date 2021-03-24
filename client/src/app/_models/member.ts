@@ -1,3 +1,5 @@
+import { City } from './city';
+import { Country } from './country';
 import { Photo } from './photo';
 
 export interface Member {
@@ -12,7 +14,7 @@ export interface Member {
     introduction: string;
     lookingFor: string;
     interests: string;
-    city: string;
-    country: string;
+    city: City;
+    country: Country;
     photos: Photo[];
   }

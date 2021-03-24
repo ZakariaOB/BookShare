@@ -1,9 +1,8 @@
 <ngx-spinner>
-    <h3>Loading...</h3>
+  <h3>Loading...</h3>
 </ngx-spinner>
 
 <app-nav></app-nav>
-
-<div class="container" style="margin-top: 100px">
-    <router-outlet></router-outlet>
+<div [ngClass]="{ 'container top-margin': this.isNotSandbox, 'top-margin-sandbox': !this.isNotSandbox}">
+  <router-outlet></router-outlet>
 </div>

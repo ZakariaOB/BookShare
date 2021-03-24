@@ -442,10 +442,14 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 appsettings.json
+appsettings.Development.json
 
 ssl
 
 ## Config files and logs
-Creds.txt
-NOTES.txt
-Publish.txt
+ZCreds.txt
+ZNOTES.txt
+ZPublish.txt
+SimoNotes.txt
+MyToDoList.txt
+Cities.txt

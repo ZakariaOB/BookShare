@@ -57,14 +57,11 @@ namespace API.Data.migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("City")
-                        .HasColumnType("text");
+                    b.Property<int?>("CityId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Created")
@@ -133,6 +130,8 @@ namespace API.Data.migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CityId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -158,6 +157,26 @@ namespace API.Data.migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("API.Entities.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("API.Entities.Connection", b =>
                 {
                     b.Property<string>("ConnectionId")
@@ -174,6 +193,21 @@ namespace API.Data.migrations
                     b.HasIndex("GroupName");
 
                     b.ToTable("Connections");
+                });
+
+            modelBuilder.Entity("API.Entities.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("API.Entities.Group", b =>
@@ -359,6 +393,13 @@ namespace API.Data.migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("API.Entities.AppUser", b =>
+                {
+                    b.HasOne("API.Entities.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+                });
+
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
                 {
                     b.HasOne("API.Entities.AppRole", "Role")
@@ -371,6 +412,15 @@ namespace API.Data.migrations
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Entities.City", b =>
+                {
+                    b.HasOne("API.Entities.Country", "Country")
+                        .WithMany("Cities")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
