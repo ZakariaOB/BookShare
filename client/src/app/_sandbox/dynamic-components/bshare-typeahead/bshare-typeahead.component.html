@@ -13,7 +13,7 @@
         (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
         (mouseenter)="typeaheadTemplateMethods.selectActive(match)"
       >
-        {{ match.item.name }}
+        {{ parseValueProperty(match.item) }}
       </li>
     </ul>
   </ng-template>
@@ -21,7 +21,7 @@
     class="form-control"
     [(ngModel)]="selected"
     [typeahead]="suggestions$"
-    typeaheadOptionField="name"
+    typeaheadOptionField="valueProperty"
     [attr.disabled]="disabled ? '' : null"
     placeholder="{{ label }}"
     [typeaheadAsync]="true"
@@ -31,6 +31,7 @@
     (typeaheadNoResults)="typeaheadNoResults($event)"
     [optionsListTemplate]="customListTemplate"
     [class.is-invalid]="
+      isEmpty ||
       noResults ||
       (ngControl.touched && ngControl.invalid && nativeInput.invalid)
     "
@@ -39,7 +40,7 @@
     #nativeInput="ngModel"
   />
   <div
-    *ngIf="ngControl.control.errors?.required && nativeInput.errors?.required"
+    *ngIf="isEmpty || ngControl.control.errors?.required && nativeInput.errors?.required"
     class="invalid-feedback"
   >
     {{ label }} is required

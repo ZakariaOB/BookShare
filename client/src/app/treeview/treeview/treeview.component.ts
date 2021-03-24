@@ -1,37 +1,45 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  Renderer2,
+  ViewChildren,
+} from '@angular/core';
 import { TreeModel } from '../tree.model';
-
 
 @Component({
   selector: 'app-treeview',
   templateUrl: './treeview.component.html',
-  styleUrls: ['./treeview.component.scss']
+  styleUrls: ['./treeview.component.scss'],
 })
 export class TreeviewComponent implements OnInit, AfterViewInit {
-  @ViewChildren("options") options: QueryList<ElementRef>;
-  @ViewChildren("icons") iconsTags: QueryList<ElementRef>;
-  @Input("treeModel") model: TreeModel;
+  @ViewChildren('options') options: QueryList<ElementRef>;
+  @ViewChildren('icons') iconsTags: QueryList<ElementRef>;
+  @Input('treeModel') model: TreeModel;
   @Output() onSelectItem = new EventEmitter<string>();
 
   eleList: ElementRef[];
   eleMap: Map<string, ElementRef>;
-  iconsMap:Map<string,ElementRef>;
-  TREEVIEW_SUFFIX: string = "_treeView";
-  ICON_SUFFIX:string="_icon";
-  ARIA_EXPANDED: string = "aria-expanded";
-  DATA_CHILDCOUNT = "data-childcount";
-  DATA_LID: string = "data-lid";
-  DATA_CODE: string = "data-code";
-  DATA_ISFIRST: string = "data-first";
-  DATA_ISLAST: string = "data-last";
-  TAB_INDEX: string = "tabindex";
+  iconsMap: Map<string, ElementRef>;
+  TREEVIEW_SUFFIX: string = '_treeView';
+  ICON_SUFFIX: string = '_icon';
+  ARIA_EXPANDED: string = 'aria-expanded';
+  DATA_CHILDCOUNT = 'data-childcount';
+  DATA_LID: string = 'data-lid';
+  DATA_CODE: string = 'data-code';
+  DATA_ISFIRST: string = 'data-first';
+  DATA_ISLAST: string = 'data-last';
+  TAB_INDEX: string = 'tabindex';
   currentActiveDescdentElement: string;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     this.createInitMap();
@@ -46,85 +54,98 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
 
   createInitMap() {
     this.eleMap = new Map<string, ElementRef>();
-    this.options.forEach((eleRef: ElementRef, index: number, optionsarray: ElementRef[]) => {
-      this.renderer.setAttribute(eleRef.nativeElement, "data-lid", String(index));
-      this.eleMap.set(eleRef.nativeElement.id, eleRef);
-    });
+    this.options.forEach(
+      (eleRef: ElementRef, index: number, optionsarray: ElementRef[]) => {
+        this.renderer.setAttribute(
+          eleRef.nativeElement,
+          'data-lid',
+          String(index)
+        );
+        this.eleMap.set(eleRef.nativeElement.id, eleRef);
+      }
+    );
 
-    this.iconsMap=new Map<string,ElementRef>();
-    this.iconsTags.forEach((eleRef: ElementRef, index: number, optionsarray: ElementRef[]) => {
-      this.iconsMap.set(eleRef.nativeElement.id, eleRef);
-    });
+    this.iconsMap = new Map<string, ElementRef>();
+    this.iconsTags.forEach(
+      (eleRef: ElementRef, index: number, optionsarray: ElementRef[]) => {
+        this.iconsMap.set(eleRef.nativeElement.id, eleRef);
+      }
+    );
   }
 
   setTabIndexOnLoad(role: string, i: number) {
-    return (role == 'tree' && i == 0) ? "0" : "-1";
+    return role == 'tree' && i == 0 ? '0' : '-1';
   }
 
   toggleSelection($event: any, item: any) {
-    if(!item.children) {
-      console.log('toggle Item',item)
+    if (!item.children) {
       this.onSelectItem.emit(item?.component.name);
     }
-    this.options.some((eleRef: ElementRef, index: number, optionsarray: ElementRef[]) => {
-      let code = eleRef.nativeElement.getAttribute("data-code")
-      if (code == item[this.model.cid]) {
-        let isExpanded = eleRef.nativeElement.getAttribute(this.ARIA_EXPANDED);
-        this.setElementAttribute(eleRef, this.ARIA_EXPANDED, (isExpanded == "true") ? "false" : "true");
-        if (this.currentActiveDescdentElement != null) {
-          let caliEleRef = this.eleMap.get(this.currentActiveDescdentElement);
-          if (caliEleRef != null) {
-            this.setElementAttribute(caliEleRef, this.TAB_INDEX, "-1");
-            this.setElementAttribute(eleRef, this.TAB_INDEX, "0");
-            this.currentActiveDescdentElement = eleRef.nativeElement.id;
+    this.options.some(
+      (eleRef: ElementRef, index: number, optionsarray: ElementRef[]) => {
+        let code = eleRef.nativeElement.getAttribute('data-code');
+        if (code == item[this.model.cid]) {
+          let isExpanded = eleRef.nativeElement.getAttribute(
+            this.ARIA_EXPANDED
+          );
+          this.setElementAttribute(
+            eleRef,
+            this.ARIA_EXPANDED,
+            isExpanded == 'true' ? 'false' : 'true'
+          );
+          if (this.currentActiveDescdentElement != null) {
+            let caliEleRef = this.eleMap.get(this.currentActiveDescdentElement);
+            if (caliEleRef != null) {
+              this.setElementAttribute(caliEleRef, this.TAB_INDEX, '-1');
+              this.setElementAttribute(eleRef, this.TAB_INDEX, '0');
+              this.currentActiveDescdentElement = eleRef.nativeElement.id;
+            }
           }
+          return true;
         }
-        return true;
       }
-    });
-
+    );
   }
 
   getExpandCollapseClass(item: any) {
     if (item != null && item.children != null && item.children.length > 0) {
-      return "fa "+this.model.iconExpand;
+      return 'fa ' + this.model.iconExpand;
     }
-    return "fa "+this.model.iconNeutral;
+    return 'fa ' + this.model.iconNeutral;
   }
 
   isChildrenExists(items: any[]) {
-    return (items != null && items.length > 0) ? true : false;
+    return items != null && items.length > 0 ? true : false;
   }
 
   collapsedState(item: any) {
     if (item != null && item.children != null && item.children.length > 0) {
-      item.ariaExpanded="false";
-      return "false"
+      item.ariaExpanded = 'false';
+      return 'false';
     }
-    item.ariaExpanded=null;
+    item.ariaExpanded = null;
     return null;
-
   }
 
   executeKeydown($event) {
     let keyCode = $event.which;
 
     switch (keyCode) {
-      case 40://Down Arrow
+      case 40: //Down Arrow
         this.executeArrowDown($event);
         break;
 
-      case 38:// Up Arrow
+      case 38: // Up Arrow
         this.executeUpArrow($event);
         break;
-      case 37:// RightArrow
+      case 37: // RightArrow
         this.executeLeftArrow($event);
         break;
 
-      case 39:// RightArrow
+      case 39: // RightArrow
         this.executeRightArrow($event);
         break;
-      case 32:// Spacebar
+      case 32: // Spacebar
         this.selectOption($event);
         break;
     }
@@ -138,7 +159,11 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
   isExpanded(eleRef: ElementRef) {
     let isExpanded = eleRef.nativeElement.getAttribute(this.ARIA_EXPANDED);
     let childCount = eleRef.nativeElement.getAttribute(this.DATA_CHILDCOUNT);
-    if (isExpanded == "true" && !isNaN(childCount) && parseInt(childCount) > 0) {
+    if (
+      isExpanded == 'true' &&
+      !isNaN(childCount) &&
+      parseInt(childCount) > 0
+    ) {
       return true;
     }
     return false;
@@ -148,21 +173,27 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
   getChildCount(item: any) {
     if (item != null && item[this.model.cnid] != null) {
       let items = item[this.model.cnid];
-      return (Array.isArray(items) ? items.length : 0)
+      return Array.isArray(items) ? items.length : 0;
     }
-    return "0";
+    return '0';
   }
 
   setElementAttribute(eleRef: ElementRef, attribute: string, value: string) {
     this.renderer.setAttribute(eleRef.nativeElement, attribute, value);
-    let icon=eleRef.nativeElement.querySelector('i');
-    let iconEleRef=this.iconsMap.get(icon.id);
-    if(value=="true"){
-      this.renderer.removeClass(iconEleRef.nativeElement,this.model.iconExpand);
-      this.renderer.addClass(iconEleRef.nativeElement,this.model.iconCollapse);
-    }else if(value=="false"){
-      this.renderer.removeClass(iconEleRef.nativeElement,this.model.iconCollapse);
-      this.renderer.addClass(iconEleRef.nativeElement,this.model.iconExpand);
+    let icon = eleRef.nativeElement.querySelector('i');
+    let iconEleRef = this.iconsMap.get(icon.id);
+    if (value == 'true') {
+      this.renderer.removeClass(
+        iconEleRef.nativeElement,
+        this.model.iconExpand
+      );
+      this.renderer.addClass(iconEleRef.nativeElement, this.model.iconCollapse);
+    } else if (value == 'false') {
+      this.renderer.removeClass(
+        iconEleRef.nativeElement,
+        this.model.iconCollapse
+      );
+      this.renderer.addClass(iconEleRef.nativeElement, this.model.iconExpand);
     }
   }
   executeRightArrow($event) {
@@ -173,11 +204,9 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
     let childCount = eleRef.nativeElement.getAttribute(this.DATA_CHILDCOUNT);
     if (!isNaN(childCount) && parseInt(childCount) > 0) {
       let isExpanded = eleRef.nativeElement.getAttribute(this.ARIA_EXPANDED);
-      if (isExpanded == "false")
-        this.setElementAttribute(eleRef, this.ARIA_EXPANDED, "true");
-
+      if (isExpanded == 'false')
+        this.setElementAttribute(eleRef, this.ARIA_EXPANDED, 'true');
     }
-
   }
 
   executeLeftArrow($event) {
@@ -188,11 +217,9 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
     let childCount = eleRef.nativeElement.getAttribute(this.DATA_CHILDCOUNT);
     if (!isNaN(childCount) && parseInt(childCount) > 0) {
       let isExpanded = eleRef.nativeElement.getAttribute(this.ARIA_EXPANDED);
-      if (isExpanded == "true")
-        this.setElementAttribute(eleRef, this.ARIA_EXPANDED, "false");
-
+      if (isExpanded == 'true')
+        this.setElementAttribute(eleRef, this.ARIA_EXPANDED, 'false');
     }
-
   }
 
   executeArrowDown($event) {
@@ -201,8 +228,6 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
     let lid = $event.currentTarget.getAttribute(this.DATA_LID);
     let eleRef: ElementRef = this.eleMap.get($event.currentTarget.id);
     this.recursiveDownNavigation(eleRef, 0);
-
-
   }
 
   executeUpArrow($event) {
@@ -211,14 +236,13 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
     let lid = $event.currentTarget.getAttribute(this.DATA_LID);
     let eleRef: ElementRef = this.eleMap.get($event.currentTarget.id);
     this.recursiveUpNavigation(eleRef, 0);
-
   }
   recursiveUpNavigation(eleRef: ElementRef<any>, loopCounter: number) {
     let lid = eleRef.nativeElement.getAttribute(this.DATA_LID);
     let isFirst = eleRef.nativeElement.getAttribute(this.DATA_ISFIRST);
     let isLast = eleRef.nativeElement.getAttribute(this.DATA_ISLAST);
 
-    if (isFirst == "0" && loopCounter > 0) {
+    if (isFirst == '0' && loopCounter > 0) {
       if (this.isExpanded(eleRef)) {
         let ul = eleRef.nativeElement.querySelector('ul');
         let lastChild = ul.lastChild;
@@ -226,21 +250,20 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
         if (this.isExpanded(childEleRef)) {
           this.recursiveUpNavigation(childEleRef, loopCounter + 1);
         } else {
-          this.setElementAttribute(childEleRef, this.TAB_INDEX, "-1");
-          this.setElementAttribute(childEleRef, this.TAB_INDEX, "0");
+          this.setElementAttribute(childEleRef, this.TAB_INDEX, '-1');
+          this.setElementAttribute(childEleRef, this.TAB_INDEX, '0');
           this.setToFocus(childEleRef);
         }
       } else {
-        this.setElementAttribute(eleRef, this.TAB_INDEX, "0");
+        this.setElementAttribute(eleRef, this.TAB_INDEX, '0');
         this.setToFocus(eleRef);
       }
     }
-    if (isFirst == "0" && loopCounter == 0) {
-
+    if (isFirst == '0' && loopCounter == 0) {
       let prevLid = parseInt(lid) - 1;
       if (prevLid > -1) {
         let preVEleRef: ElementRef = this.eleList[prevLid];
-        this.setElementAttribute(eleRef, this.TAB_INDEX, "-1");
+        this.setElementAttribute(eleRef, this.TAB_INDEX, '-1');
         if (this.isExpanded(preVEleRef)) {
           let ul = preVEleRef.nativeElement.querySelector('ul');
           let lastChild = ul.lastChild;
@@ -248,32 +271,30 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
           if (this.isExpanded(childEleRef)) {
             this.recursiveUpNavigation(childEleRef, loopCounter + 1);
           } else {
-            this.setElementAttribute(eleRef, this.TAB_INDEX, "-1");
-            this.setElementAttribute(childEleRef, this.TAB_INDEX, "0");
+            this.setElementAttribute(eleRef, this.TAB_INDEX, '-1');
+            this.setElementAttribute(childEleRef, this.TAB_INDEX, '0');
             this.setToFocus(childEleRef);
           }
         } else {
-          this.setElementAttribute(preVEleRef, this.TAB_INDEX, "0");
+          this.setElementAttribute(preVEleRef, this.TAB_INDEX, '0');
           this.setToFocus(preVEleRef);
         }
-
       }
-    } else if (isFirst == "1") {
-
+    } else if (isFirst == '1') {
       let parent = eleRef.nativeElement.parentElement;
-      let role = parent.getAttribute("role");
-      if (role == "group") {
+      let role = parent.getAttribute('role');
+      if (role == 'group') {
         let superParent = parent.parentElement;
-        let role = superParent.getAttribute("role");
-        if (role == "treeitem") {
+        let role = superParent.getAttribute('role');
+        if (role == 'treeitem') {
           let subeleRef: ElementRef = this.eleMap.get(superParent.id);
-          this.setElementAttribute(eleRef, this.TAB_INDEX, "-1");
-          this.setElementAttribute(subeleRef, this.TAB_INDEX, "0");
+          this.setElementAttribute(eleRef, this.TAB_INDEX, '-1');
+          this.setElementAttribute(subeleRef, this.TAB_INDEX, '0');
           this.setToFocus(subeleRef);
           if (this.isExpanded(subeleRef)) {
             let ul = subeleRef.nativeElement.querySelector('ul');
           } else {
-            this.setElementAttribute(subeleRef, this.TAB_INDEX, "0");
+            this.setElementAttribute(subeleRef, this.TAB_INDEX, '0');
             this.setToFocus(subeleRef);
           }
         }
@@ -281,16 +302,14 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  selectOption($event) {
-
-  }
+  selectOption($event) {}
 
   getTreeItemId(item: any, treeId: string) {
-    return item[this.model.cid] + "_" + treeId + this.TREEVIEW_SUFFIX;
+    return item[this.model.cid] + '_' + treeId + this.TREEVIEW_SUFFIX;
   }
-  getIconId(item:any,treeId:string){
-    let itemId=this.getTreeItemId(item,treeId);
-    return itemId+"_"+this.ICON_SUFFIX;
+  getIconId(item: any, treeId: string) {
+    let itemId = this.getTreeItemId(item, treeId);
+    return itemId + '_' + this.ICON_SUFFIX;
   }
   setToFocus(eleRef: ElementRef) {
     this.currentActiveDescdentElement = eleRef.nativeElement.id;
@@ -298,61 +317,61 @@ export class TreeviewComponent implements OnInit, AfterViewInit {
     this.scrollIntoViewSmoothly(eleRef);
   }
   scrollIntoViewSmoothly(eleRef: ElementRef) {
-    eleRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    eleRef.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start',
+    });
   }
 
   recursiveDownNavigation(eleRef: ElementRef, loopCounter: number) {
-
     let lid = eleRef.nativeElement.getAttribute(this.DATA_LID);
     let isFirst = eleRef.nativeElement.getAttribute(this.DATA_ISFIRST);
     let isLast = eleRef.nativeElement.getAttribute(this.DATA_ISLAST);
 
     //when current item is not first or last item in the child list
-    if (isLast == "0") {
+    if (isLast == '0') {
       //check if children are expanded
       if (this.isExpanded(eleRef) && loopCounter < 1) {
         let li = eleRef.nativeElement.querySelector('li');
 
         if (li != null) {
           let nextEleRef: ElementRef = this.eleMap.get(li.id);
-          this.setElementAttribute(eleRef, this.TAB_INDEX, "-1");
-          this.setElementAttribute(nextEleRef, this.TAB_INDEX, "0");
+          this.setElementAttribute(eleRef, this.TAB_INDEX, '-1');
+          this.setElementAttribute(nextEleRef, this.TAB_INDEX, '0');
           this.setToFocus(nextEleRef);
         }
       } else {
         let nextLid = parseInt(lid) + 1;
         if (nextLid <= this.options.length) {
           let nextEleRef: ElementRef = this.eleList[nextLid];
-          this.setElementAttribute(eleRef, this.TAB_INDEX, "-1");
-          this.setElementAttribute(nextEleRef, this.TAB_INDEX, "0");
+          this.setElementAttribute(eleRef, this.TAB_INDEX, '-1');
+          this.setElementAttribute(nextEleRef, this.TAB_INDEX, '0');
           this.setToFocus(nextEleRef);
         }
       }
-    } else if (isLast == "1") {
+    } else if (isLast == '1') {
       if (this.isExpanded(eleRef) && loopCounter < 1) {
         let li = eleRef.nativeElement.querySelector('li');
         if (li != null) {
           let nextEleRef: ElementRef = this.eleMap.get(li.id);
-          this.setElementAttribute(eleRef, this.TAB_INDEX, "-1");
-          this.setElementAttribute(nextEleRef, this.TAB_INDEX, "0");
+          this.setElementAttribute(eleRef, this.TAB_INDEX, '-1');
+          this.setElementAttribute(nextEleRef, this.TAB_INDEX, '0');
           this.setToFocus(nextEleRef);
         }
       } else {
         let parent = eleRef.nativeElement.parentElement;
-        let role = parent.getAttribute("role");
-        if (role == "group") {
+        let role = parent.getAttribute('role');
+        if (role == 'group') {
           let superParent = parent.parentElement;
-          let role = superParent.getAttribute("role");
-          if (role == "treeitem") {
+          let role = superParent.getAttribute('role');
+          if (role == 'treeitem') {
             let subeleRef: ElementRef = this.eleMap.get(superParent.id);
-            this.setElementAttribute(eleRef, this.TAB_INDEX, "-1");
+            this.setElementAttribute(eleRef, this.TAB_INDEX, '-1');
             this.recursiveDownNavigation(subeleRef, loopCounter + 1);
           }
         }
       }
     }
   }
-
-
-
 }
