@@ -15,6 +15,7 @@ import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { SandboxComponent } from './sandbox/sandbox.component';
+import { MemberListNdComponent } from './members/0_newdesign/member-list-nd/member-list-nd.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,7 +30,8 @@ const routes: Routes = [
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]},
-      {path: 'sandbox', component: SandboxComponent, canActivate: [AdminGuard]}
+      {path: 'sandbox', component: SandboxComponent, canActivate: [AdminGuard]},
+      {path: 'member-nd', component: MemberListNdComponent},
     ]
   },
   {path: 'errors', component: TestErrorsComponent},

@@ -55,6 +55,7 @@ import { TemplateDemoComponent } from './_sandbox/dynamic-components/template-de
 import { TabContainerComponent } from './_sandbox/dynamic-components/template-demo/tab-container/tab-container.component';
 import { UnicornInputComponent } from './_sandbox/dynamic-components/form-unicorn-samples/unicorn-input/unicorn-input.component';
 import { UnicornFormHostComponent } from './_sandbox/dynamic-components/form-unicorn-samples/unicorn-form-host/unicorn-form-host.component';
+import { MemberListNdComponent } from './members/0_newdesign/member-list-nd/member-list-nd.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { UnicornFormHostComponent } from './_sandbox/dynamic-components/form-uni
     TemplateDemoComponent,
     TabContainerComponent,
     UnicornInputComponent,
-    UnicornFormHostComponent
+    UnicornFormHostComponent,
+    MemberListNdComponent
   ],
   imports: [
     TypeaheadModule.forRoot(),
