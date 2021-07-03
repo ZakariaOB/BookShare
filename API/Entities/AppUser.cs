@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities
@@ -15,6 +16,8 @@ namespace API.Entities
         public string LookingFor { get; set; }
         public string Interests { get; set; }
         public int? CityId {get; set;}
+
+        [JsonIgnore]
         public City City {get; set;}
         public ICollection<Photo> Photos { get; set; }
         public ICollection<UserLike> LikedByUsers { get; set; }
