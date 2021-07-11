@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
@@ -23,7 +23,6 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
@@ -56,6 +55,8 @@ import { TabContainerComponent } from './_sandbox/dynamic-components/template-de
 import { UnicornInputComponent } from './_sandbox/dynamic-components/form-unicorn-samples/unicorn-input/unicorn-input.component';
 import { UnicornFormHostComponent } from './_sandbox/dynamic-components/form-unicorn-samples/unicorn-form-host/unicorn-form-host.component';
 import { MemberListNdComponent } from './members/0_newdesign/member-list-nd/member-list-nd.component';
+import { BshareFilterListComponent } from './_custom_components/bshare-filter-list/bshare-filter-list.component';
+import { BshareCollapsibleComponent } from './_custom_components/bshare-collapsible/bshare-collapsible.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,9 @@ import { MemberListNdComponent } from './members/0_newdesign/member-list-nd/memb
     TabContainerComponent,
     UnicornInputComponent,
     UnicornFormHostComponent,
-    MemberListNdComponent
+    MemberListNdComponent,
+    BshareFilterListComponent,
+    BshareCollapsibleComponent
   ],
   imports: [
     TypeaheadModule.forRoot(),
@@ -114,7 +117,7 @@ import { MemberListNdComponent } from './members/0_newdesign/member-list-nd/memb
     NgxSpinnerModule,
     NgMultiSelectDropDownModule.forRoot(),
     HttpClientModule,
-    TreeviewModule,
+    TreeviewModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

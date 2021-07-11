@@ -3,6 +3,6 @@
 </ngx-spinner>
 
 <app-nav></app-nav>
-<div [ngClass]="{ 'container top-margin': this.isNotSandbox, 'top-margin-sandbox': !this.isNotSandbox}">
+<div [ngClass]="{ 'container top-margin': !isRemoveContainerClass, 'top-margin-sandbox': isRemoveContainerClass}">
   <router-outlet></router-outlet>
 </div>

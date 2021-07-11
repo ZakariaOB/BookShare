@@ -1,0 +1,19 @@
+.search-result {
+  margin-right: 2rem;
+  margin-left: 2rem;
+
+  .search-section {
+    background-color: burlywood;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    min-height: 5rem;
+  }
+  .filter-section {
+    background-color: red;
+    min-height: 25rem;
+  }
+  &-section {
+    background-color: yellow;
+    min-height: 50rem;
+  }
+}

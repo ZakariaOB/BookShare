@@ -1,0 +1,71 @@
+@import "../../../variables";
+
+.filter-list {
+  .no-reuslt {
+    color: $primary;
+  }
+  margin-left: 50px;
+  .check-item {
+    padding: 0.3rem 0;
+  }
+  .custom-control-label {
+    cursor: pointer;
+    &::before {
+      background-color: white;
+      border: 2px solid $primary;
+    }
+  }
+  .custom-checkbox
+    .custom-control-input:checked
+    ~ .custom-control-label::after {
+    background-color: $primary;
+  }
+  .show-more-link {
+    display: flex;
+    padding: 0;
+    justify-content: flex-end;
+    color: $primary;
+    font-weight: bolder;
+    width: 6.5rem;
+    margin-left: -1.4rem;
+    cursor: pointer;
+    .title {
+      margin-right: auto;
+      text-align: left;
+    }
+  }
+  .last-element-style {
+    opacity: 0.5;
+  }
+  .search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__input {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      background-color: $gray-200;
+      border: none;
+      border-radius: 11px;
+      padding: 0.4rem 1rem;
+      transition: all 0.2s;
+      margin: 0 0 .6rem -1.5rem;
+      width: 115%;
+      &:focus {
+        outline: none;
+        width: 100%;
+        background-color: $gray-300;
+      }
+  
+      &::-webkit-input-placeholder {
+        font-weight: 100;
+        color: $gray-600;
+      }
+    }
+  
+    &__input:focus {
+      background-color: $gray-300;
+    }
+  }
+}

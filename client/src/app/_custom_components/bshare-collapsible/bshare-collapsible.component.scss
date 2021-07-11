@@ -1,0 +1,56 @@
+@import "../../../variables";
+
+.collapsible {
+  .title-accordion {
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    .title {
+      margin-right: auto;
+      text-align: left;
+      min-width: 15rem;
+      font-size: 1.4rem;
+    }
+  }
+  .icon-up-down {
+    background-color: $primary;
+    font-weight: bold;
+  }
+  .content {
+    margin-left: 1.5rem;
+  }
+}
+
+accordion-group {
+  ::ng-deep {
+    .card {
+      border-radius: 0;
+      border: none;
+    }
+    .card-header {
+      border: none;
+    }
+    .panel-heading {
+      background-color: transparent;
+      padding: 0;
+    }
+    .panel-body {
+      padding: 0.5rem 0.5rem 0.5rem 0px;
+    }
+    .panel-default {
+      border-top: 1px solid $primary;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0;
+    }
+    div {
+      & > div.panel-heading.card-header.panel-enabled {
+        .btn-link {
+          text-decoration: none;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
