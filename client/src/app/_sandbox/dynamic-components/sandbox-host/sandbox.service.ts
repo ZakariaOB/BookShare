@@ -9,6 +9,9 @@ import { InputValidationComponent } from '../input-validation/input-validation.c
 import { TreeHostComponent } from 'src/app/treeview/tree-host/tree-host.component';
 import { TemplateDemoComponent } from '../template-demo/template-demo.component';
 import { UnicornFormHostComponent } from '../form-unicorn-samples/unicorn-form-host/unicorn-form-host.component';
+import { BshareFilterListComponent } from 'src/app/_custom_components/bshare-filter-list/bshare-filter-list.component';
+import { Authors } from '../../_mocks/authors';
+import { BshareCollapsibleComponent } from 'src/app/_custom_components/bshare-collapsible/bshare-collapsible.component';
 
 export class SandboxService {
   getDynamiComponentsDescriptors() {
@@ -60,6 +63,11 @@ export class SandboxService {
       new SandBoxItem({
         componentName: 'Unicorn forms',
         component: UnicornFormHostComponent,
+      }),
+      new SandBoxItem({
+        componentName: 'BShare filter',
+        component: BshareFilterListComponent,
+        data: { items: Authors, valueProperty: 'name', placeholder: 'Search Author' }
       })
     ];
   }

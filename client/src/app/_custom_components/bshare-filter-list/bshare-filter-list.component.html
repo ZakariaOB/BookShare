@@ -1,0 +1,51 @@
+<div class="filter-list">
+  <div class="list-items">
+    <app-bshare-collapsible>
+      <div content class="filter-section">
+        <input
+          type="text"
+          class="search__input"
+          [placeholder]="placeholder"
+          #searchInput
+          (input)="filterItems(searchInput.value)"
+          *ngIf="showSearchInput"
+        />
+        <div *ngFor="let item of itemsToShow; let isLast = last">
+          <div
+            class="check-item custom-control custom-checkbox"
+            [ngClass]="{ 'last-element-style': isLast && !isShowLess }"
+          >
+            <input
+              class="custom-control-input"
+              type="checkbox"
+              [id]="item.id"
+              [name]="customCheckItem"
+            />
+            <label class="custom-control-label" [for]="item.id">{{
+              parseValueProperty(item)
+            }}</label>
+          </div>
+        </div>
+        <div
+          *ngIf="isAboveLimit && !isShowLess"
+          class="show-more-link"
+          (click)="onShowMore()"
+        >
+          <span class="title">Show more</span>
+          <span><i class="fa fa-angle-down"></i></span>
+        </div>
+        <div
+          *ngIf="isShowLess && isAboveLimit"
+          class="show-more-link"
+          (click)="onShowLess()"
+        >
+          <span class="title">Show less</span>
+          <span><i class="fa fa-angle-up"></i></span>
+        </div>
+        <div>
+          <span *ngIf="noResult" class="no-reuslt">No results found</span>
+        </div>
+      </div>
+    </app-bshare-collapsible>
+  </div>
+</div>

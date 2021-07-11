@@ -15,15 +15,18 @@ export class AppComponent implements OnInit {
   title = 'Books sharing App';
   users: any;
   navigationEndEvent: NavigationEnd;
+  urlsToRemoveContainerClassFor: string[] = ['/sandbox', '/member-nd'];
 
   constructor(
     private accountService: AccountService,
     private presence: PresenceService,
     private router: Router
   ) {}
+  
 
-  get isNotSandbox(): boolean {
-    return this.navigationEndEvent?.url !== '/sandbox';
+  get isRemoveContainerClass(): boolean {
+    const url = this.navigationEndEvent?.url;
+    return this.urlsToRemoveContainerClassFor.some(item => url === item); 
   }
 
   ngOnInit() {

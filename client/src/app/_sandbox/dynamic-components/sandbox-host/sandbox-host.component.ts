@@ -7,6 +7,7 @@ import {
   Component,
 } from '@angular/core';
 import { TreeModel } from 'src/app/treeview/tree.model';
+import { BshareFilterListComponent } from 'src/app/_custom_components/bshare-filter-list/bshare-filter-list.component';
 import { SandboxHostDirective } from 'src/app/_directives/sandbox-host.directive';
 import { DirectiveSamplesComponent } from '../../directives/directive-samples/directive-samples.component';
 import { ComponentHolder } from '../component-holder';
@@ -46,7 +47,7 @@ export class SandBoxHostComponent implements OnInit {
       'fa-chevron-down',
       'fa-square-o'
     );
-    this.loadCompnentByName(DirectiveSamplesComponent.name);
+    this.loadCompnentByName(BshareFilterListComponent.name);
   }
 
   loadCompnentByName(name: string): void {

@@ -1,0 +1,25 @@
+<div class="collapsible">
+  <accordion>
+    <accordion-group [isOpen]="isOpen">
+      <button
+        class="btn btn-link btn-block clearfix"
+        accordion-heading
+        type="button"
+        (click)="toggleOpenState($event)"
+      >
+        <div class="title-accordion">
+          <span class="title">{{ title }}</span>
+          <span *ngIf="!isOpen" class="float-right pull-right"
+            ><i class="fa fa-angle-down"></i
+          ></span>
+          <span *ngIf="isOpen" class="float-right pull-right"
+            ><i class="fa fa-angle-up"></i
+          ></span>
+        </div>
+      </button>
+      <div class="content">
+        <ng-content select="[content]"></ng-content>
+      </div>
+    </accordion-group>
+  </accordion>
+</div>
