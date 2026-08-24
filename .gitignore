@@ -447,6 +447,7 @@ appsettings.Development.json
 ssl
 
 ## Config files and logs
+Creds.txt
 ZCreds.txt
 ZNOTES.txt
 ZPublish.txt
